@@ -8,10 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@300;400;700&family=Courier+Prime&display=swap" rel="stylesheet">
     
     <style>
-        /* ================================================================
-           1. CSS VARIABLEN (DESIGN TOKENS)
-           ================================================================
-        */
         :root {
             --primary-color: #4CAF50;
             --secondary-color: #2E7D32;
@@ -25,10 +21,6 @@
             --transition-speed: 0.4s;
         }
 
-        /* ================================================================
-           2. GLOBAL RESET
-           ================================================================
-        */
         * {
             margin: 0;
             padding: 0;
@@ -46,10 +38,6 @@
             line-height: 1.6;
         }
 
-        /* ================================================================
-           3. BACKGROUND & FX
-           ================================================================
-        */
         .fixed-background {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -67,10 +55,6 @@
             pointer-events: none;
         }
 
-        /* ================================================================
-           4. NAVIGATION
-           ================================================================
-        */
         nav {
             background: rgba(0,0,0,0.95);
             padding: 1.5rem 10%;
@@ -104,10 +88,6 @@
 
         .nav-links a:hover { color: var(--primary-color); }
 
-        /* ================================================================
-           5. HERO SECTION
-           ================================================================
-        */
         header.hero-section {
             height: 85vh;
             display: flex;
@@ -145,10 +125,6 @@
 
         .ip-container:hover { background: rgba(255,255,255,0.1); transform: scale(1.05); }
 
-        /* ================================================================
-           6. BUTTONS
-           ================================================================
-        */
         .btn {
             padding: 18px 45px;
             border-radius: 12px;
@@ -167,25 +143,21 @@
         .btn-blue { background: var(--discord-color); box-shadow: 0 10px 20px rgba(88, 101, 242, 0.3); }
         .btn:hover { transform: translateY(-5px); filter: brightness(1.2); }
 
-        /* ================================================================
-           7. TEAM SECTION (KÖPFE)
-           ================================================================
-        */
-        .team-section { padding: 100px 10%; background: rgba(0,0,0,0.3); }
+        .team-section { padding: 100px 5%; background: rgba(0,0,0,0.3); }
         .team-grid {
             display: flex;
             justify-content: center;
-            gap: 4rem;
+            gap: 2rem;
             flex-wrap: wrap;
             margin-top: 3rem;
         }
 
         .admin-profile {
             background: var(--card-surface);
-            padding: 3rem;
+            padding: 2rem;
             border-radius: 30px;
             text-align: center;
-            width: 320px;
+            width: 280px;
             border: 1px solid rgba(255,255,255,0.05);
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             transition: 0.5s;
@@ -197,27 +169,23 @@
         }
 
         .head-wrapper {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             margin: 0 auto 1.5rem;
             border: 4px solid var(--primary-color);
             border-radius: 15px;
-            padding: 10px;
+            padding: 8px;
             background: #1a1a1a;
         }
 
         .head-wrapper img {
             width: 100%;
-            image-rendering: pixelated; /* Erhält den Minecraft-Look */
+            image-rendering: pixelated;
         }
 
-        .rank-owner { color: var(--accent-gold); font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
-        .rank-admin { color: var(--primary-color); font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
+        .rank-owner { color: var(--accent-gold); font-weight: bold; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; }
+        .rank-admin { color: var(--primary-color); font-weight: bold; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; }
 
-        /* ================================================================
-           8. KI SUPPORT SECTION
-           ================================================================
-        */
         .ai-container {
             max-width: 900px;
             margin: 100px auto;
@@ -261,10 +229,6 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        /* ================================================================
-           9. FOOTER
-           ================================================================
-        */
         footer {
             padding: 5rem 2rem;
             text-align: center;
@@ -311,8 +275,8 @@
                 <div class="head-wrapper">
                     <img src="https://minotar.net/cube/GamerPalle67/100.png" alt="GamerPalle67 Head">
                 </div>
-                <div class="rank-owner">Owner</div>
-                <h3 style="font-size: 1.8rem; margin: 10px 0;">GamerPalle67</h3>
+                <div class="rank-owner">Server Owner & Technischer Berater</div>
+                <h3 style="font-size: 1.5rem; margin: 10px 0;">GamerPalle67</h3>
                 <p style="font-size: 0.85rem; color: var(--text-muted);">Gründer, Developer und technischer Leiter.</p>
             </div>
 
@@ -320,9 +284,27 @@
                 <div class="head-wrapper">
                     <img src="https://minotar.net/cube/Tritim/100.png" alt="Tritim Head">
                 </div>
-                <div class="rank-admin">Administrator</div>
-                <h3 style="font-size: 1.8rem; margin: 10px 0;">Tritim</h3>
+                <div class="rank-admin">Developer</div>
+                <h3 style="font-size: 1.5rem; margin: 10px 0;">Tritim</h3>
                 <p style="font-size: 0.85rem; color: var(--text-muted);">Management, Support-Leitung und Organisation.</p>
+            </div>
+
+            <div class="admin-profile">
+                <div class="head-wrapper">
+                    <img src="https://minotar.net/cube/Franz27111111/100.png" alt="Franz27111111 Head">
+                </div>
+                <div class="rank-owner">Gründer</div>
+                <h3 style="font-size: 1.5rem; margin: 10px 0;">Franz27111111</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Mitbegründer des Gamewaffel Netzwerks.</p>
+            </div>
+
+            <div class="admin-profile">
+                <div class="head-wrapper">
+                    <img src="https://minotar.net/cube/Schokimaster/100.png" alt="Schokimaster Head">
+                </div>
+                <div class="rank-owner">Gründer</div>
+                <h3 style="font-size: 1.5rem; margin: 10px 0;">Schokimaster</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Mitbegründer des Gamewaffel Netzwerks.</p>
             </div>
         </div>
     </section>
@@ -352,7 +334,6 @@
     </footer>
 
     <script>
-        // 1. PARTIKEL ANIMATION (Hintergrund-Effekt)
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -397,7 +378,6 @@
         initParticles();
         animate();
 
-        // 2. IP KOPIEREN FUNKTION
         function copyIP() {
             const ip = document.getElementById('server-ip').innerText;
             navigator.clipboard.writeText(ip).then(() => {
@@ -405,18 +385,15 @@
             });
         }
 
-        // 3. KI LOGIK (E-MAIL AUFFORDERUNG)
         function runAI() {
             const input = document.getElementById('ai-input');
             const chatBox = document.getElementById('chat-box');
             const val = input.value.trim();
             if (!val) return;
 
-            // User Message
             addMsg(val, 'user');
             input.value = "";
 
-            // Bot Response
             setTimeout(() => {
                 const low = val.toLowerCase();
                 let reply = "Das ist eine interessante Frage! Für detaillierte Unterstützung schreibe bitte eine E-Mail an support@gamewaffel.de.";
@@ -424,7 +401,7 @@
                 if (low.includes("hallo") || low.includes("hey")) reply = "Hey! Willkommen im Support von Gamewaffel. Wie kann ich dir helfen?";
                 if (low.includes("ip") || low.includes("connect")) reply = "Die IP lautet: eu7118422.g-portal.game. Kopiere sie am besten direkt oben!";
                 if (low.includes("hilfe") || low.includes("fehler") || low.includes("bug") || low.includes("gebannt")) {
-                    reply = "Oh, das klingt nach einem Problem. Bitte schreibe eine E-Mail an support@gamewaffel.de, damit GamerPalle67 oder Tritim sich das ansehen können!";
+                    reply = "Oh, das klingt nach einem Problem. Bitte schreibe eine E-Mail an support@gamewaffel.de, damit das Team sich das ansehen kann!";
                 }
 
                 addMsg(reply, 'bot');
@@ -439,8 +416,6 @@
             chatBox.appendChild(div);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
-
-        console.log("Portal v3.0 erfolgreich geladen.");
     </script>
 </body>
 </html>
