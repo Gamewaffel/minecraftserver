@@ -3,282 +3,444 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gamewaffel | Offizielles Server Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Gamewaffel | Official Server Hub</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@300;400;700&family=Courier+Prime&display=swap" rel="stylesheet">
     
     <style>
-        /* GRUNDLEGENDE STYLES & VARIABLEN 
+        /* ================================================================
+           1. CSS VARIABLEN (DESIGN TOKENS)
+           ================================================================
         */
         :root {
-            --primary: #4CAF50;
-            --secondary: #2E7D32;
-            --discord: #5865F2;
-            --bg-deep: #050505;
-            --card-glass: rgba(15, 15, 15, 0.9);
-            --text-color: #ffffff;
-            --accent: #FFD700;
+            --primary-color: #4CAF50;
+            --secondary-color: #2E7D32;
+            --discord-color: #5865F2;
+            --background-dark: #080808;
+            --card-surface: rgba(20, 20, 20, 0.95);
+            --text-light: #ffffff;
+            --text-muted: #aaaaaa;
+            --accent-gold: #FFD700;
+            --error-red: #ff4444;
+            --transition-speed: 0.4s;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* ================================================================
+           2. GLOBAL RESET
+           ================================================================
+        */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            background-color: var(--bg-deep);
-            color: var(--text-color);
+            background-color: var(--background-dark);
+            color: var(--text-light);
             font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            line-height: 1.6;
         }
 
-        /* Hintergrund-Effekt */
-        .page-bg {
+        /* ================================================================
+           3. BACKGROUND & FX
+           ================================================================
+        */
+        .fixed-background {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)), 
+            z-index: -3;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), 
                         url('https://minecraft.wiki/images/thumb/Panorama_Update_Aquatic.png/1200px-Panorama_Update_Aquatic.png');
             background-size: cover;
             background-position: center;
         }
 
-        canvas#particles {
+        canvas#particle-canvas {
             position: fixed;
             top: 0; left: 0;
-            z-index: -1;
+            z-index: -2;
+            pointer-events: none;
         }
 
-        /* NAVIGATION */
+        /* ================================================================
+           4. NAVIGATION
+           ================================================================
+        */
         nav {
-            background: rgba(0,0,0,0.9);
-            padding: 20px 10%;
+            background: rgba(0,0,0,0.95);
+            padding: 1.5rem 10%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 2px solid var(--primary);
+            border-bottom: 3px solid var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .logo { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; letter-spacing: 2px; }
+        .nav-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+        }
 
-        /* HERO SECTION */
-        .hero {
-            height: 90vh;
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 600;
+            transition: var(--transition-speed);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover { color: var(--primary-color); }
+
+        /* ================================================================
+           5. HERO SECTION
+           ================================================================
+        */
+        header.hero-section {
+            height: 85vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 20px;
+            padding: 2rem;
         }
 
-        .hero h1 {
+        .hero-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 5rem;
-            text-shadow: 5px 5px #000;
-            margin-bottom: 20px;
+            font-size: clamp(3rem, 10vw, 6rem);
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 10px 20px rgba(0,0,0,1);
+            animation: fadeInDown 1s ease-out;
         }
 
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ip-container {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 2rem;
+            font-family: 'Courier Prime', monospace;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .ip-container:hover { background: rgba(255,255,255,0.1); transform: scale(1.05); }
+
+        /* ================================================================
+           6. BUTTONS
+           ================================================================
+        */
         .btn {
-            padding: 15px 40px;
-            border-radius: 5px;
+            padding: 18px 45px;
+            border-radius: 12px;
             text-decoration: none;
             color: white;
-            font-weight: bold;
+            font-weight: 700;
             text-transform: uppercase;
-            transition: 0.3s;
+            transition: var(--transition-speed);
             cursor: pointer;
             border: none;
-            margin: 10px;
             display: inline-block;
+            margin: 0.5rem;
         }
 
-        .btn-mc { background: var(--primary); }
-        .btn-discord { background: var(--discord); }
-        .btn:hover { transform: scale(1.1); filter: brightness(1.2); }
+        .btn-green { background: var(--primary-color); box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3); }
+        .btn-blue { background: var(--discord-color); box-shadow: 0 10px 20px rgba(88, 101, 242, 0.3); }
+        .btn:hover { transform: translateY(-5px); filter: brightness(1.2); }
 
-        /* TEAM SEKTION - HIER SIND DIE ADMINS */
-        .section-padding { padding: 100px 10%; }
-
-        .team-container {
+        /* ================================================================
+           7. TEAM SECTION (KÖPFE)
+           ================================================================
+        */
+        .team-section { padding: 100px 10%; background: rgba(0,0,0,0.3); }
+        .team-grid {
             display: flex;
             justify-content: center;
-            gap: 50px;
+            gap: 4rem;
             flex-wrap: wrap;
-            margin-top: 50px;
+            margin-top: 3rem;
         }
 
-        .admin-card {
-            background: var(--card-glass);
-            padding: 40px;
-            border-radius: 20px;
+        .admin-profile {
+            background: var(--card-surface);
+            padding: 3rem;
+            border-radius: 30px;
             text-align: center;
-            width: 300px;
-            border: 2px solid #333;
-            transition: 0.4s;
+            width: 320px;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transition: 0.5s;
         }
 
-        .admin-card:hover { border-color: var(--primary); transform: translateY(-10px); }
-
-        .skin-view {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 20px;
-            background-color: #222;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            border: 2px solid var(--primary);
+        .admin-profile:hover {
+            transform: translateY(-20px);
+            border-color: var(--primary-color);
         }
 
-        .skin-view img { width: 100%; image-rendering: pixelated; }
-
-        /* KI-SUPPORT */
-        .ai-box {
-            background: var(--card-glass);
-            padding: 40px;
-            border-radius: 20px;
-            max-width: 800px;
-            margin: 0 auto;
+        .head-wrapper {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            border: 4px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 10px;
+            background: #1a1a1a;
         }
 
-        .chat-log {
-            height: 300px;
+        .head-wrapper img {
+            width: 100%;
+            image-rendering: pixelated; /* Erhält den Minecraft-Look */
+        }
+
+        .rank-owner { color: var(--accent-gold); font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
+        .rank-admin { color: var(--primary-color); font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* ================================================================
+           8. KI SUPPORT SECTION
+           ================================================================
+        */
+        .ai-container {
+            max-width: 900px;
+            margin: 100px auto;
+            background: var(--card-surface);
+            border-radius: 30px;
+            padding: 3rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .chat-window {
+            height: 400px;
             overflow-y: auto;
-            background: rgba(0,0,0,0.5);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            background: #050505;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 1rem;
+            border: 1px solid #222;
         }
 
-        .msg { padding: 10px 15px; border-radius: 10px; max-width: 80%; }
-        .msg.bot { background: #444; align-self: flex-start; }
-        .msg.user { background: var(--primary); align-self: flex-end; }
-
-        input#userIn {
-            width: 75%; padding: 15px; border-radius: 5px; border: none; background: #111; color: white;
+        .chat-bubble {
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            max-width: 85%;
+            font-size: 0.95rem;
         }
 
-        /* FOOTER */
-        footer { padding: 50px; text-align: center; background: #000; margin-top: 100px; }
+        .chat-bubble.bot { background: #333; align-self: flex-start; border-bottom-left-radius: 0; }
+        .chat-bubble.user { background: var(--primary-color); align-self: flex-end; border-bottom-right-radius: 0; }
+
+        .chat-controls { display: flex; gap: 1rem; }
+        input#ai-input {
+            flex: 1;
+            padding: 1.2rem;
+            border-radius: 12px;
+            border: 1px solid #333;
+            background: #111;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* ================================================================
+           9. FOOTER
+           ================================================================
+        */
+        footer {
+            padding: 5rem 2rem;
+            text-align: center;
+            background: #000;
+            border-top: 1px solid #111;
+        }
+
+        .footer-note { font-size: 0.7rem; color: #444; margin-top: 2rem; }
     </style>
 </head>
 <body>
 
-<div class="page-bg"></div>
-<canvas id="particles"></canvas>
+    <div class="fixed-background"></div>
+    <canvas id="particle-canvas"></canvas>
 
-<nav>
-    <div class="logo">GAMEWAFFEL.DE</div>
-    <div class="nav-links">
-        <a href="#home" style="color:white; margin-left:20px; text-decoration:none;">Home</a>
-        <a href="#team" style="color:white; margin-left:20px; text-decoration:none;">Team</a>
-        <a href="#support" style="color:white; margin-left:20px; text-decoration:none;">Support</a>
-    </div>
-</nav>
+    <nav>
+        <div class="nav-brand">Gamewaffel</div>
+        <div class="nav-links">
+            <a href="#home">Start</a>
+            <a href="#team">Team</a>
+            <a href="#support">Support</a>
+        </div>
+    </nav>
 
-<section class="hero" id="home">
-    <h1>GAMECONNECT</h1>
-    <p>Tritt dem besten Minecraft Netzwerk bei!</p>
-    <div>
-        <button class="btn btn-mc" onclick="copyIP()">IP: play.gamewaffel.de</button>
-        <a href="https://discord.gg/deincode" class="btn btn-discord">Discord</a>
-    </div>
-</section>
-
-<section class="section-padding" id="team">
-    <h2 style="text-align:center; font-size:3rem;">UNSERE ADMINISTRATION</h2>
-    <div class="team-container">
+    <header class="hero-section" id="home">
+        <h1 class="hero-title">GAMECONNECT</h1>
         
-        <div class="admin-card">
-            <div class="skin-view">
-                <img src="https://minotar.net/armor/body/GamerPalle67/100.png" alt="GamerPalle67">
+        <div class="ip-container" onclick="copyIP()" title="Klicken zum Kopieren">
+            IP: <span id="server-ip">eu7118422.g-portal.game</span>
+        </div>
+
+        <div class="hero-btns">
+            <a href="https://discord.gg/deincode" target="_blank" class="btn btn-blue">Discord Server</a>
+            <button onclick="copyIP()" class="btn btn-green">Server beitreten</button>
+        </div>
+    </header>
+
+    <section class="team-section" id="team">
+        <h2 style="text-align:center; font-size:3rem; margin-bottom:1rem;">Netzwerk-Leitung</h2>
+        <p style="text-align:center; color:var(--text-muted); margin-bottom:3rem;">Die Köpfe hinter dem Projekt.</p>
+        
+        <div class="team-grid">
+            <div class="admin-profile">
+                <div class="head-wrapper">
+                    <img src="https://minotar.net/cube/GamerPalle67/100.png" alt="GamerPalle67 Head">
+                </div>
+                <div class="rank-owner">Owner</div>
+                <h3 style="font-size: 1.8rem; margin: 10px 0;">GamerPalle67</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Gründer, Developer und technischer Leiter.</p>
             </div>
-            <h3>GamerPalle67</h3>
-            <p style="color: var(--accent);">Owner</p>
-            <p style="font-size: 0.8rem; margin-top: 10px;">Projektleitung & Entwicklung.</p>
-        </div>
 
-        <div class="admin-card">
-            <div class="skin-view">
-                <img src="https://minotar.net/armor/body/Tritim/100.png" alt="Tritim">
+            <div class="admin-profile">
+                <div class="head-wrapper">
+                    <img src="https://minotar.net/cube/Tritim/100.png" alt="Tritim Head">
+                </div>
+                <div class="rank-admin">Administrator</div>
+                <h3 style="font-size: 1.8rem; margin: 10px 0;">Tritim</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Management, Support-Leitung und Organisation.</p>
             </div>
-            <h3>Tritim</h3>
-            <p style="color: var(--primary);">Admin</p>
-            <p style="font-size: 0.8rem; margin-top: 10px;">Server-Management & Support.</p>
         </div>
+    </section>
 
-    </div>
-</section>
+    <section class="support-section" id="support">
+        <div class="ai-container">
+            <h2 style="margin-bottom: 1rem; text-align: center;">Support KI-Assistent</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Fragen zum Server? Unsere KI hilft dir weiter.</p>
+            
+            <div class="chat-window" id="chat-box">
+                <div class="chat-bubble bot">Willkommen im Support! Wie kann ich dir heute helfen?</div>
+            </div>
 
-<section class="section-padding" id="support">
-    <div class="ai-box">
-        <h2 style="margin-bottom:20px;">Support-KI</h2>
-        <div class="chat-log" id="log">
-            <div class="msg bot">Hallo! Wie kann ich dir helfen?</div>
+            <div class="chat-controls">
+                <input type="text" id="ai-input" placeholder="Schreibe eine Nachricht..." onkeypress="if(event.key==='Enter') runAI()">
+                <button class="btn btn-green" style="margin:0; padding: 15px 30px;" onclick="runAI()">Senden</button>
+            </div>
         </div>
-        <div style="display:flex; gap:10px;">
-            <input type="text" id="userIn" placeholder="Frag mich was...">
-            <button class="btn btn-mc" style="margin:0;" onclick="startAI()">Senden</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Gamewaffel-Network | Alle Rechte vorbehalten.</p>
+        <p style="color:var(--primary-color); margin-top: 10px;">Partner: G-Portal Hosting</p>
+        <div class="footer-note">
+            Dieses Projekt wurde im Rahmen eines Schulprojekts entwickelt. Minecraft ist ein Markenzeichen von Mojang Synergies AB.
         </div>
-    </div>
-</section>
+    </footer>
 
-<footer>
-    <p>&copy; 2026 Gamewaffel | Erstellt für das Schulprojekt</p>
-</footer>
+    <script>
+        // 1. PARTIKEL ANIMATION (Hintergrund-Effekt)
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
 
-<script>
-    // PARTIKEL SYSTEM
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    let pArray = [];
-    for(let i=0; i<80; i++) {
-        pArray.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, s: Math.random()*2, v: Math.random()*0.5});
-    }
-    function draw() {
-        ctx.clearRect(0,0,canvas.width, canvas.height);
-        ctx.fillStyle = "rgba(76, 175, 80, 0.5)";
-        pArray.forEach(p => {
-            ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, Math.PI*2); ctx.fill();
-            p.y += p.v; if(p.y > canvas.height) p.y = 0;
-        });
-        requestAnimationFrame(draw);
-    }
-    draw();
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
 
-    // IP KOPIEREN
-    function copyIP() {
-        navigator.clipboard.writeText("play.gamewaffel.de");
-        alert("IP kopiert!");
-    }
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedY = Math.random() * 0.5 + 0.2;
+                this.opacity = Math.random() * 0.5;
+            }
+            update() {
+                this.y += this.speedY;
+                if (this.y > canvas.height) this.y = -10;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(76, 175, 80, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
 
-    // KI LOGIK
-    function startAI() {
-        const input = document.getElementById('userIn');
-        const log = document.getElementById('log');
-        if(!input.value) return;
+        function initParticles() {
+            for (let i = 0; i < 100; i++) particles.push(new Particle());
+        }
 
-        log.innerHTML += `<div class="msg user">${input.value}</div>`;
-        const val = input.value.toLowerCase();
-        input.value = "";
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
 
-        setTimeout(() => {
-            let res = "Für diesen Bereich schreibe bitte eine E-Mail an support@gamewaffel.de!";
-            if(val.includes("hallo")) res = "Hey! Willkommen.";
-            if(val.includes("ip")) res = "Die IP ist play.gamewaffel.de";
-            log.innerHTML += `<div class="msg bot">${res}</div>`;
-            log.scrollTop = log.scrollHeight;
-        }, 800);
-    }
-</script>
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        initParticles();
+        animate();
 
+        // 2. IP KOPIEREN FUNKTION
+        function copyIP() {
+            const ip = document.getElementById('server-ip').innerText;
+            navigator.clipboard.writeText(ip).then(() => {
+                alert("Server-IP kopiert: " + ip + "\nViel Spaß auf dem Server!");
+            });
+        }
+
+        // 3. KI LOGIK (E-MAIL AUFFORDERUNG)
+        function runAI() {
+            const input = document.getElementById('ai-input');
+            const chatBox = document.getElementById('chat-box');
+            const val = input.value.trim();
+            if (!val) return;
+
+            // User Message
+            addMsg(val, 'user');
+            input.value = "";
+
+            // Bot Response
+            setTimeout(() => {
+                const low = val.toLowerCase();
+                let reply = "Das ist eine interessante Frage! Für detaillierte Unterstützung schreibe bitte eine E-Mail an support@gamewaffel.de.";
+
+                if (low.includes("hallo") || low.includes("hey")) reply = "Hey! Willkommen im Support von Gamewaffel. Wie kann ich dir helfen?";
+                if (low.includes("ip") || low.includes("connect")) reply = "Die IP lautet: eu7118422.g-portal.game. Kopiere sie am besten direkt oben!";
+                if (low.includes("hilfe") || low.includes("fehler") || low.includes("bug") || low.includes("gebannt")) {
+                    reply = "Oh, das klingt nach einem Problem. Bitte schreibe eine E-Mail an support@gamewaffel.de, damit GamerPalle67 oder Tritim sich das ansehen können!";
+                }
+
+                addMsg(reply, 'bot');
+            }, 800);
+        }
+
+        function addMsg(text, type) {
+            const chatBox = document.getElementById('chat-box');
+            const div = document.createElement('div');
+            div.className = `chat-bubble ${type}`;
+            div.innerText = text;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        console.log("Portal v3.0 erfolgreich geladen.");
+    </script>
 </body>
 </html>
