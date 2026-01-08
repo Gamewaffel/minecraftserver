@@ -3,369 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Erweiterte KI-Chatbot-Webseite - Mit vielen Features</title>
+    <title>Gamewaffel | Offizielles Server Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
     <style>
-        /* Grundlegendes Styling */
+        /* GRUNDLEGENDE STYLES & VARIABLEN 
+        */
+        :root {
+            --primary: #4CAF50;
+            --secondary: #2E7D32;
+            --discord: #5865F2;
+            --bg-deep: #050505;
+            --card-glass: rgba(15, 15, 15, 0.9);
+            --text-color: #ffffff;
+            --accent: #FFD700;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            background-color: #1e1e1e;
-            color: #ffffff;
-            font-family: 'Courier New', monospace;
-            margin: 0;
-            padding: 20px;
+            background-color: var(--bg-deep);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Hintergrund-Effekt */
+        .page-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)), 
+                        url('https://minecraft.wiki/images/thumb/Panorama_Update_Aquatic.png/1200px-Panorama_Update_Aquatic.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        canvas#particles {
+            position: fixed;
+            top: 0; left: 0;
+            z-index: -1;
+        }
+
+        /* NAVIGATION */
+        nav {
+            background: rgba(0,0,0,0.9);
+            padding: 20px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .logo { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; letter-spacing: 2px; }
+
+        /* HERO SECTION */
+        .hero {
+            height: 90vh;
             display: flex;
             flex-direction: column;
-            height: 100vh;
-        }
-        h1 {
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            color: #00ff00;
+            padding: 20px;
         }
-        /* Chat-Container */
-        #chat-container {
-            flex: 1;
-            border: 1px solid #333;
-            padding: 10px;
-            overflow-y: auto;
-            background-color: #000;
-            margin-bottom: 10px;
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 5rem;
+            text-shadow: 5px 5px #000;
+            margin-bottom: 20px;
         }
-        /* Eingabebereich */
-        #input-container {
-            display: flex;
-        }
-        #user-input {
-            flex: 1;
-            padding: 10px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            outline: none;
-        }
-        button {
-            padding: 10px;
-            background-color: #00ff00;
-            color: #000;
-            border: none;
+
+        .btn {
+            padding: 15px 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s;
             cursor: pointer;
+            border: none;
+            margin: 10px;
+            display: inline-block;
         }
-        button:hover {
-            background-color: #00cc00;
-        }
-        .message {
-            margin-bottom: 10px;
-        }
-        .user {
-            color: #ffff00;
-        }
-        .ai {
-            color: #00ffff;
-        }
-        /* Neue Features: Sidebar für Logs */
-        #sidebar {
-            width: 300px;
-            background-color: #222;
-            padding: 10px;
-            overflow-y: auto;
-            border-left: 1px solid #333;
-        }
-        #main-content {
+
+        .btn-mc { background: var(--primary); }
+        .btn-discord { background: var(--discord); }
+        .btn:hover { transform: scale(1.1); filter: brightness(1.2); }
+
+        /* TEAM SEKTION - HIER SIND DIE ADMINS */
+        .section-padding { padding: 100px 10%; }
+
+        .team-container {
             display: flex;
-            flex: 1;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-top: 50px;
         }
-        #chat-area {
-            flex: 1;
+
+        .admin-card {
+            background: var(--card-glass);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            width: 300px;
+            border: 2px solid #333;
+            transition: 0.4s;
         }
-        /* Animationen für Buttons */
-        button {
-            transition: background-color 0.3s;
+
+        .admin-card:hover { border-color: var(--primary); transform: translateY(-10px); }
+
+        .skin-view {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            background-color: #222;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border: 2px solid var(--primary);
         }
-        /* Theme-Wechsler */
-        #theme-selector {
-            margin-bottom: 10px;
+
+        .skin-view img { width: 100%; image-rendering: pixelated; }
+
+        /* KI-SUPPORT */
+        .ai-box {
+            background: var(--card-glass);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        /* Sound-Button */
-        #sound-toggle {
-            margin-left: 10px;
-        }
-        /* Dummy-Logs für Zeilenfüllung - viele Einträge */
-        .log-entry {
-            color: #888;
-            font-size: 12px;
-        }
-        /* Mehr CSS für Responsivität */
-        @media (max-width: 768px) {
-            #main-content {
-                flex-direction: column;
-            }
-            #sidebar {
-                width: 100%;
-                height: 200px;
-            }
-        }
-        /* Zusätzliche Styles für Features */
-        .feature-button {
-            margin: 5px;
-        }
-        .chat-history {
-            max-height: 200px;
+
+        .chat-log {
+            height: 300px;
             overflow-y: auto;
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
-        /* Animation für Nachrichten */
-        .message {
-            animation: fadeIn 0.5s;
+
+        .msg { padding: 10px 15px; border-radius: 10px; max-width: 80%; }
+        .msg.bot { background: #444; align-self: flex-start; }
+        .msg.user { background: var(--primary); align-self: flex-end; }
+
+        input#userIn {
+            width: 75%; padding: 15px; border-radius: 5px; border: none; background: #111; color: white;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        /* Mehr Dummy-Styles */
-        .dummy-style1 { color: red; }
-        .dummy-style2 { color: blue; }
-        .dummy-style3 { color: green; }
-        /* Viele weitere Dummy-Styles, um Zeilen zu füllen */
-        .dummy-style4 { background: yellow; }
-        .dummy-style5 { border: 1px solid pink; }
-        .dummy-style6 { font-weight: bold; }
-        .dummy-style7 { text-decoration: underline; }
-        .dummy-style8 { text-transform: uppercase; }
-        .dummy-style9 { letter-spacing: 2px; }
-        .dummy-style10 { line-height: 1.5; }
-        .dummy-style11 { opacity: 0.8; }
-        .dummy-style12 { transform: rotate(5deg); }
-        .dummy-style13 { box-shadow: 0 0 10px rgba(0,255,0,0.5); }
-        .dummy-style14 { padding: 20px; }
-        .dummy-style15 { margin: 10px; }
-        .dummy-style16 { display: inline-block; }
-        .dummy-style17 { float: left; }
-        .dummy-style18 { clear: both; }
-        .dummy-style19 { position: relative; }
-        .dummy-style20 { z-index: 1; }
-        /* Weitere Dummy-Styles */
-        .dummy-style21 { color: #ff0000; }
-        .dummy-style22 { color: #00ff00; }
-        .dummy-style23 { color: #0000ff; }
-        .dummy-style24 { color: #ffff00; }
-        .dummy-style25 { color: #ff00ff; }
-        .dummy-style26 { color: #00ffff; }
-        .dummy-style27 { color: #800000; }
-        .dummy-style28 { color: #008000; }
-        .dummy-style29 { color: #000080; }
-        .dummy-style30 { color: #808000; }
-        /* Und so weiter, um Zeilen zu füllen - dies sind nur Beispiele */
-        .dummy-style31 { background: #f0f0f0; }
-        .dummy-style32 { border-radius: 5px; }
-        .dummy-style33 { transition: all 0.2s; }
-        .dummy-style34 { cursor: pointer; }
-        .dummy-style35 { user-select: none; }
-        .dummy-style36 { overflow: hidden; }
-        .dummy-style37 { text-overflow: ellipsis; }
-        .dummy-style38 { white-space: nowrap; }
-        .dummy-style39 { vertical-align: top; }
-        .dummy-style40 { list-style: none; }
-        /* Mehr Dummy-Styles für Zeilen */
-        .dummy-style41 { font-size: 14px; }
-        .dummy-style42 { font-family: Arial; }
-        .dummy-style43 { text-align: center; }
-        .dummy-style44 { width: 100%; }
-        .dummy-style45 { height: 50px; }
-        .dummy-style46 { min-width: 200px; }
-        .dummy-style47 { max-width: 500px; }
-        .dummy-style48 { flex-grow: 1; }
-        .dummy-style49 { flex-shrink: 0; }
-        .dummy-style50 { align-self: center; }
-        /* Weitere */
-        .dummy-style51 { justify-content: space-between; }
-        .dummy-style52 { align-items: flex-start; }
-        .dummy-style53 { gap: 10px; }
-        .dummy-style54 { order: 1; }
-        .dummy-style55 { grid-template-columns: 1fr 1fr; }
-        .dummy-style56 { grid-gap: 5px; }
-        .dummy-style57 { place-items: center; }
-        .dummy-style58 { object-fit: cover; }
-        .dummy-style59 { filter: blur(2px); }
-        .dummy-style60 { backdrop-filter: blur(5px); }
-        /* Und so weiter - dies hilft, die Zeilenanzahl zu erhöhen */
-        .dummy-style61 { color: hsl(120, 100%, 50%); }
-        .dummy-style62 { background: linear-gradient(to right, red, blue); }
-        .dummy-style63 { border: 2px dashed green; }
-        .dummy-style64 { outline: 1px solid yellow; }
-        .dummy-style65 { box-sizing: border-box; }
-        .dummy-style66 { resize: both; }
-        .dummy-style67 { overflow-x: scroll; }
-        .dummy-style68 { overflow-y: hidden; }
-        .dummy-style69 { scroll-behavior: smooth; }
-        .dummy-style70 { will-change: transform; }
-        /* Mehr Dummy-Styles */
-        .dummy-style71 { isolation: isolate; }
-        .dummy-style72 { mix-blend-mode: multiply; }
-        .dummy-style73 { background-blend-mode: screen; }
-        .dummy-style74 { clip-path: circle(50%); }
-        .dummy-style75 { mask: url(#mask); }
-        .dummy-style76 { filter: sepia(100%); }
-        .dummy-style77 { transform: scale(1.1); }
-        .dummy-style78 { transform-origin: center; }
-        .dummy-style79 { perspective: 1000px; }
-        .dummy-style80 { backface-visibility: hidden; }
-        /* Weitere Dummy-Styles für Zeilenfüllung */
-        .dummy-style81 { color: rgba(255,0,0,0.5); }
-        .dummy-style82 { background: radial-gradient(circle, blue, green); }
-        .dummy-style83 { border-top: 1px solid red; }
-        .dummy-style84 { border-bottom: 1px solid blue; }
-        .dummy-style85 { border-left: 1px solid green; }
-        .dummy-style86 { border-right: 1px solid yellow; }
-        .dummy-style87 { padding-top: 5px; }
-        .dummy-style88 { padding-bottom: 5px; }
-        .dummy-style89 { padding-left: 5px; }
-        .dummy-style90 { padding-right: 5px; }
-        .dummy-style91 { margin-top: 5px; }
-        .dummy-style92 { margin-bottom: 5px; }
-        .dummy-style93 { margin-left: 5px; }
-        .dummy-style94 { margin-right: 5px; }
-        .dummy-style95 { font-style: italic; }
-        .dummy-style96 { font-variant: small-caps; }
-        .dummy-style97 { text-shadow: 1px 1px 2px black; }
-        .dummy-style98 { word-spacing: 5px; }
-        .dummy-style99 { hyphens: auto; }
-        .dummy-style100 { quotes: '"' '"'; }
-        /* Noch mehr Dummy-Styles */
-        .dummy-style101 { counter-reset: section; }
-        .dummy-style102 { counter-increment: section; }
-        .dummy-style103 { content: counter(section); }
-        .dummy-style104 { list-style-type: decimal; }
-        .dummy-style105 { list-style-position: inside; }
-        .dummy-style106 { page-break-before: always; }
-        .dummy-style107 { page-break-after: always; }
-        .dummy-style108 { page-break-inside: avoid; }
-        .dummy-style109 { orphans: 2; }
-        .dummy-style110 { widows: 2; }
-        /* Und so weiter - diese Dummy-Styles sind nur zur Erfüllung der Zeilenanforderung */
-        .dummy-style111 { color: #123456; }
-        .dummy-style112 { background: #abcdef; }
-        .dummy-style113 { border: 1px solid #fedcba; }
-        .dummy-style114 { outline: 1px solid #654321; }
-        .dummy-style115 { box-shadow: 2px 2px 5px #000; }
-        .dummy-style116 { text-shadow: 0 0 5px #fff; }
-        .dummy-style117 { transform: translateX(10px); }
-        .dummy-style118 { transform: translateY(10px); }
-        .dummy-style119 { transform: rotate(10deg); }
-        .dummy-style120 { transform: skew(10deg); }
-        /* Mehr Dummy-Styles */
-        .dummy-style121 { transition-property: color; }
-        .dummy-style122 { transition-duration: 1s; }
-        .dummy-style123 { transition-timing-function: ease; }
-        .dummy-style124 { transition-delay: 0.5s; }
-        .dummy-style125 { animation-name: slide; }
-        .dummy-style126 { animation-duration: 2s; }
-        .dummy-style127 { animation-iteration-count: infinite; }
-        .dummy-style128 { animation-direction: alternate; }
-        .dummy-style129 { animation-fill-mode: forwards; }
-        .dummy-style130 { animation-play-state: paused; }
-        /* Weitere */
-        .dummy-style131 { display: grid; }
-        .dummy-style132 { grid-template-rows: 1fr 2fr; }
-        .dummy-style133 { grid-column-start: 1; }
-        .dummy-style134 { grid-column-end: 3; }
-        .dummy-style135 { grid-row-start: 1; }
-        .dummy-style136 { grid-row-end: 2; }
-        .dummy-style137 { justify-self: start; }
-        .dummy-style138 { align-self: end; }
-        .dummy-style139 { place-self: center; }
-        .dummy-style140 { flex-direction: row-reverse; }
-        /* Und so weiter - dies erreicht die Zeilenanzahl */
-        .dummy-style141 { color: #aabbcc; }
-        .dummy-style142 { background: #ddeeff; }
-        .dummy-style143 { border: 1px solid #112233; }
-        .dummy-style144 { outline: 1px solid #445566; }
-        .dummy-style145 { box-shadow: 3px 3px 6px #777; }
-        .dummy-style146 { text-shadow: 1px 1px 3px #888; }
-        .dummy-style147 { transform: scaleX(1.2); }
-        .dummy-style148 { transform: scaleY(1.2); }
-        .dummy-style149 { transform: matrix(1,0,0,1,10,10); }
-        .dummy-style150 { filter: brightness(1.2); }
-        /* Mehr Dummy-Styles */
-        .dummy-style151 { backdrop-filter: brightness(0.8); }
-        .dummy-style152 { clip-path: polygon(0 0, 100% 0, 50% 100%); }
-        .dummy-style153 { mask-image: linear-gradient(to right, transparent, black); }
-        .dummy-style154 { filter: contrast(1.5); }
-        .dummy-style155 { transform: perspective(500px) rotateX(45deg); }
-        .dummy-style156 { backface-visibility: visible; }
-        .dummy-style157 { isolation: auto; }
-        .dummy-style158 { mix-blend-mode: difference; }
-        .dummy-style159 { background-blend-mode: overlay; }
-        .dummy-style160 { will-change: opacity; }
-        /* Weitere Dummy-Styles für Zeilen */
-        .dummy-style161 { color: hsl(240, 50%, 50%); }
-        .dummy-style162 { background: conic-gradient(red, yellow, green); }
-        .dummy-style163 { border-image: linear-gradient(to right, red, blue) 1; }
-        .dummy-style164 { outline-offset: 5px; }
-        .dummy-style165 { box-sizing: content-box; }
-        .dummy-style166 { resize: horizontal; }
-        .dummy-style167 { overflow-wrap: break-word; }
-        .dummy-style168 { word-break: break-all; }
-        .dummy-style169 { hyphens: manual; }
-        .dummy-style170 { text-justify: inter-word; }
-        /* Und so weiter */
-        .dummy-style171 { counter-set: section 1; }
-        .dummy-style172 { content: "Kapitel " counter(section); }
-        .dummy-style173 { list-style-image: url('icon.png'); }
-        .dummy-style174 { page-break-before: left; }
-        .dummy-style175 { page-break-after: right; }
-        .dummy-style176 { page-break-inside: auto; }
-        .dummy-style177 { orphans: 3; }
-        .dummy-style178 { widows: 3; }
-        .dummy-style179 { columns: 2; }
-        .dummy-style180 { column-gap: 20px; }
-        /* Mehr Dummy-Styles */
-        .dummy-style181 { column-rule: 1px solid black; }
-        .dummy-style182 { column-span: all; }
-        .dummy-style183 { break-before: page; }
-        .dummy-style184 { break-after: column; }
-        .dummy-style185 { break-inside: avoid; }
-        .dummy-style186 { writing-mode: vertical-rl; }
-        .dummy-style187 { text-orientation: mixed; }
-        .dummy-style188 { direction: rtl; }
-        .dummy-style189 { unicode-bidi: bidi-override; }
-        .dummy-style190 { hanging-punctuation: first; }
-        /* Weitere */
-        .dummy-style191 { line-break: strict; }
-        .dummy-style192 { overflow-block: clip; }
-        .dummy-style193 { overflow-inline: visible; }
-        .dummy-style194 { scroll-snap-type: x mandatory; }
-        .dummy-style195 { scroll-snap-align: start; }
-        .dummy-style196 { scroll-padding: 10px; }
-        .dummy-style197 { scroll-margin: 5px; }
-        .dummy-style198 { contain: layout; }
-        .dummy-style199 { content-visibility: auto; }
-        .dummy-style200 { aspect-ratio: 16/9; }
-        /* Und so weiter - diese Dummy-Styles sind nur zur Erfüllung der Zeilenanforderung und haben keine Funktion */
+
+        /* FOOTER */
+        footer { padding: 50px; text-align: center; background: #000; margin-top: 100px; }
     </style>
 </head>
 <body>
-    <h1>Erweiterte KI-Chatbot-Webseite - Mit vielen Features</h1>
-    <div id="theme-selector">
-        <button onclick="changeTheme('dark')">Dunkles Theme</button>
-        <button onclick="changeTheme('light')">Helles Theme</button>
+
+<div class="page-bg"></div>
+<canvas id="particles"></canvas>
+
+<nav>
+    <div class="logo">GAMEWAFFEL.DE</div>
+    <div class="nav-links">
+        <a href="#home" style="color:white; margin-left:20px; text-decoration:none;">Home</a>
+        <a href="#team" style="color:white; margin-left:20px; text-decoration:none;">Team</a>
+        <a href="#support" style="color:white; margin-left:20px; text-decoration:none;">Support</a>
     </div>
-    <div id="main-content">
-        <div id="chat-area">
-            <div id="chat-container">
-                <div class="message ai">Willkommen! Stelle eine Frage an die KI. Neue Features: Theme-Wechsler, Sound-Toggle, Chat-Verlauf, Logs.</div>
+</nav>
+
+<section class="hero" id="home">
+    <h1>GAMECONNECT</h1>
+    <p>Tritt dem besten Minecraft Netzwerk bei!</p>
+    <div>
+        <button class="btn btn-mc" onclick="copyIP()">IP: play.gamewaffel.de</button>
+        <a href="https://discord.gg/deincode" class="btn btn-discord">Discord</a>
+    </div>
+</section>
+
+<section class="section-padding" id="team">
+    <h2 style="text-align:center; font-size:3rem;">UNSERE ADMINISTRATION</h2>
+    <div class="team-container">
+        
+        <div class="admin-card">
+            <div class="skin-view">
+                <img src="https://minotar.net/armor/body/GamerPalle67/100.png" alt="GamerPalle67">
             </div>
-            <div id="input-container">
-                <input type="text" id="user-input" placeholder="Gib deine Nachricht ein...">
-                <button onclick="sendMessage()">Senden</button>
-                <button id="sound-toggle" onclick="toggleSound()">Sound An/Aus</button>
-            </div>
-            <div class="chat-history" id="chat-history">
-                <h3>Chat-Verlauf</h3>
-                <div id="history-list"></div>
-            </div>
+            <h3>GamerPalle67</h3>
+            <p style="color: var(--accent);">Owner</p>
+            <p style="font-size: 0.8rem; margin-top: 10px;">Projektleitung & Entwicklung.</p>
         </div>
-        <div id="sidebar">
-            <h3>Server-Logs (Simulation)</h3>
-            <div id="logs">
-                <!-- Viele Dummy-Log-Einträge zur Zeilenfüllung -->
-                <div class="log-entry">[INFO] Server gestartet.</div>
-                <div class="log-entry">[WARN] Verbindung unterbrochen.</div>
-                <div class="log-entry">[ERROR] Fehler bei API-Aufruf.</div>
-                <div class="log-entry">[INFO] Benutzer eingeloggt.</
+
+        <div class="admin-card">
+            <div class="skin-view">
+                <img src="https://minotar.net/armor/body/Tritim/100.png" alt="Tritim">
+            </div>
+            <h3>Tritim</h3>
+            <p style="color: var(--primary);">Admin</p>
+            <p style="font-size: 0.8rem; margin-top: 10px;">Server-Management & Support.</p>
+        </div>
+
+    </div>
+</section>
+
+<section class="section-padding" id="support">
+    <div class="ai-box">
+        <h2 style="margin-bottom:20px;">Support-KI</h2>
+        <div class="chat-log" id="log">
+            <div class="msg bot">Hallo! Wie kann ich dir helfen?</div>
+        </div>
+        <div style="display:flex; gap:10px;">
+            <input type="text" id="userIn" placeholder="Frag mich was...">
+            <button class="btn btn-mc" style="margin:0;" onclick="startAI()">Senden</button>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 Gamewaffel | Erstellt für das Schulprojekt</p>
+</footer>
+
+<script>
+    // PARTIKEL SYSTEM
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let pArray = [];
+    for(let i=0; i<80; i++) {
+        pArray.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, s: Math.random()*2, v: Math.random()*0.5});
+    }
+    function draw() {
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+        ctx.fillStyle = "rgba(76, 175, 80, 0.5)";
+        pArray.forEach(p => {
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, Math.PI*2); ctx.fill();
+            p.y += p.v; if(p.y > canvas.height) p.y = 0;
+        });
+        requestAnimationFrame(draw);
+    }
+    draw();
+
+    // IP KOPIEREN
+    function copyIP() {
+        navigator.clipboard.writeText("play.gamewaffel.de");
+        alert("IP kopiert!");
+    }
+
+    // KI LOGIK
+    function startAI() {
+        const input = document.getElementById('userIn');
+        const log = document.getElementById('log');
+        if(!input.value) return;
+
+        log.innerHTML += `<div class="msg user">${input.value}</div>`;
+        const val = input.value.toLowerCase();
+        input.value = "";
+
+        setTimeout(() => {
+            let res = "Für diesen Bereich schreibe bitte eine E-Mail an support@gamewaffel.de!";
+            if(val.includes("hallo")) res = "Hey! Willkommen.";
+            if(val.includes("ip")) res = "Die IP ist play.gamewaffel.de";
+            log.innerHTML += `<div class="msg bot">${res}</div>`;
+            log.scrollTop = log.scrollHeight;
+        }, 800);
+    }
+</script>
+
+</body>
+</html>
