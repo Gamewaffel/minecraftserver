@@ -1,71 +1,43 @@
 <!DOCTYPE html>
-<html lang="de">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minecraft Hub</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
+            background-color: #1a4a1a; /* Einfaches Minecraft-Grün ohne Bild-Fehler */
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Segoe UI', sans-serif;
-            /* Ein schönes Minecraft-Panorama Bild */
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                        url('https://www.minecraft.net/content/dam/games/minecraft/key-art/Update_Aquatic_Caves_and_Cliffs_Part_I_768x432.jpg');
-            background-size: cover;
-            background-position: center;
+            height: 100vh;
+            margin: 0;
+            font-family: sans-serif;
             color: white;
         }
-        .container {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 30px;
-            border-radius: 10px;
+        .box {
+            background: rgba(0,0,0,0.9);
+            padding: 50px;
+            border-radius: 20px;
             text-align: center;
-            border: 2px solid #3e8e41;
-            width: 90%;
-            max-width: 400px;
+            border: 5px solid #ffffff;
         }
         .btn {
             display: block;
-            margin: 15px 0;
-            padding: 12px;
-            text-decoration: none;
+            background: #5865F2;
+            padding: 20px;
+            margin: 20px;
             color: white;
+            text-decoration: none;
             font-weight: bold;
-            border-radius: 5px;
-            text-transform: uppercase;
-        }
-        .discord { background-color: #5865F2; }
-        .mc { background-color: #3e8e41; cursor: pointer; }
-        #ip-display {
-            background: #111;
-            padding: 10px;
-            font-family: monospace;
-            color: #4CAF50;
-            border-radius: 5px;
-            margin-top: 10px;
-            display: block;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>SERVER HUB</h1>
-        <a href="https://discord.gg/DEIN-CODE" class="btn discord">Discord</a>
-        <div class="btn mc" onclick="copyIP()">IP Kopieren</div>
-        <span id="ip-display">deine.server-ip.de</span>
+    <div class="box">
+        <h1>TEST-VERSION</h1>
+        <p>Wenn du das hier siehst, funktioniert GitHub!</p>
+        <a href="#" class="btn">Discord (Test)</a>
     </div>
-
-    <script>
-        function copyIP() {
-            const ip = document.getElementById('ip-display').innerText;
-            navigator.clipboard.writeText(ip);
-            alert("IP kopiert!");
-        }
-    </script>
 </body>
 </html>
