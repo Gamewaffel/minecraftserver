@@ -3,99 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Server Hub</title>
+    <title>Minecraft Hub</title>
     <style>
-        * { box-sizing: border-box; }
-
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
-            
-            /* NEUER MINECRAFT LINK */
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                        url('https://minecraft.wiki/images/thumb/Panorama_Update_Aquatic.png/1200px-Panorama_Update_Aquatic.png');
+            font-family: 'Segoe UI', sans-serif;
+            /* Ein schönes Minecraft-Panorama Bild */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://www.minecraft.net/content/dam/games/minecraft/key-art/Update_Aquatic_Caves_and_Cliffs_Part_I_768x432.jpg');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            color: white;
         }
-
         .container {
-            background: rgba(0, 0, 0, 0.85);
-            padding: 2.5rem;
-            border-radius: 15px;
-            border: 2px solid #3e8e41;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 10px;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border: 2px solid #3e8e41;
             width: 90%;
-            max-width: 450px;
+            max-width: 400px;
         }
-
-        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 2px 2px #000; }
-        .description { color: #ddd; margin-bottom: 2rem; }
-
-        .links { display: flex; flex-direction: column; gap: 1rem; }
-
         .btn {
             display: block;
-            padding: 1rem;
+            margin: 15px 0;
+            padding: 12px;
             text-decoration: none;
             color: white;
             font-weight: bold;
             border-radius: 5px;
-            transition: 0.3s;
-            font-size: 1.1rem;
             text-transform: uppercase;
         }
-
-        .discord { background-color: #5865F2; border-bottom: 4px solid #3a45c3; }
-        .discord:hover { background-color: #4752C4; transform: scale(1.02); }
-
-        .minecraft { background-color: #3e8e41; border-bottom: 4px solid #255527; }
-        .minecraft:hover { background-color: #4CAF50; transform: scale(1.02); }
-
-        .ip-copy {
-            margin-top: 1.5rem;
+        .discord { background-color: #5865F2; }
+        .mc { background-color: #3e8e41; cursor: pointer; }
+        #ip-display {
             background: #111;
-            padding: 12px;
+            padding: 10px;
+            font-family: monospace;
+            color: #4CAF50;
             border-radius: 5px;
-            cursor: pointer;
-            border: 1px solid #444;
+            margin-top: 10px;
+            display: block;
         }
-
-        #ip-text { font-family: monospace; color: #4CAF50; font-size: 1.2rem; }
     </style>
 </head>
 <body>
-
     <div class="container">
         <h1>SERVER HUB</h1>
-        <p class="description">Werde Teil unserer Welt!</p>
-
-        <div class="links">
-            <a href="https://discord.gg/DEIN-CODE" target="_blank" class="discord btn">Discord Community</a>
-            <a href="#" class="minecraft btn" onclick="copyIP()">Server beitreten</a>
-        </div>
-
-        <div class="ip-copy" onclick="copyIP()">
-            <div style="font-size: 0.7rem; color: #888; margin-bottom: 5px;">KLICKEN ZUM KOPIEREN:</div>
-            <span id="ip-text">deine.server-ip.de</span>
-        </div>
+        <a href="https://discord.gg/DEIN-CODE" class="btn discord">Discord</a>
+        <div class="btn mc" onclick="copyIP()">IP Kopieren</div>
+        <span id="ip-display">deine.server-ip.de</span>
     </div>
 
     <script>
         function copyIP() {
-            const ip = document.getElementById('ip-text').innerText;
+            const ip = document.getElementById('ip-display').innerText;
             navigator.clipboard.writeText(ip);
-            alert("IP kopiert: " + ip);
+            alert("IP kopiert!");
         }
     </script>
-
 </body>
 </html>
