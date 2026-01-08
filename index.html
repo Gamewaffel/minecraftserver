@@ -1,83 +1,99 @@
-
+<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mein Server Hub</title>
+    <title>Minecraft Server Hub</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #2c2f33;
+            font-family: 'Segoe UI', sans-serif;
             color: white;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+
+            /* Minecraft Hintergrund */
+            background-image: url('minecraft_grass_background.png'); /* Pfad zu deinem Bild */
+            background-size: cover; /* Bild so skalieren, dass es den ganzen Bereich abdeckt */
+            background-position: center; /* Bild zentrieren */
+            background-repeat: no-repeat; /* Bild nicht wiederholen */
+            
+            /* Ein leichter Overlay, damit der Text besser lesbar ist */
+            position: relative;
+            z-index: 1; /* Sicherstellen, dass der Body über dem Pseudo-Element liegt */
         }
-        .container {
+        body::before { /* Pseudo-Element für den Overlay */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4); /* Dunkler, halbtransparenter Overlay */
+            z-index: -1; /* Hinter dem Inhalt des Bodys */
+        }
+
+        .card {
+            background: rgba(35, 39, 42, 0.8); /* Etwas transparenter, damit der Hintergrund durchscheint */
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
             text-align: center;
-            background-color: #23272a;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 1px solid #444;
+            z-index: 2; /* Sicherstellen, dass die Karte über dem Overlay liegt */
         }
-        h1 {
-            margin-bottom: 30px;
+        h1 { margin-bottom: 10px; font-size: 2.2rem; }
+        p { color: #b9bbbe; margin-bottom: 30px; }
+        
+        .button-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
         .btn {
-            display: block;
-            width: 250px;
-            padding: 15px;
-            margin: 15px auto;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
             text-decoration: none;
             color: white;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: transform 0.2s, background-color 0.2s;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            display: inline-block;
         }
-        .btn-discord {
-            background-color: #5865F2; /* Discord Blau */
-        }
-        .btn-discord:hover {
-            background-color: #4752c4;
-            transform: scale(1.05);
-        }
-        .btn-minecraft {
-            background-color: #388E3C; /* Minecraft Grün */
-        }
-        .btn-minecraft:hover {
-            background-color: #2e7d32;
-            transform: scale(1.05);
-        }
-        .server-ip {
-            margin-top: 10px;
-            font-family: monospace;
+        .discord-btn { background-color: #5865F2; }
+        .discord-btn:hover { background-color: #4752c4; transform: translateY(-3px); }
+        
+        .mc-btn { background-color: #388E3C; }
+        .mc-btn:hover { background-color: #2e7d32; transform: translateY(-3px); }
+
+        .ip-box {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #7289da;
             background: #1e2124;
-            padding: 5px;
-            border-radius: 4px;
+            padding: 8px;
+            border-radius: 5px;
+            display: inline-block;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Willkommen auf meinem Server</h1>
+    <div class="card">
+        <h1>Willkommen im Server Hub!</h1>
+        <p>Wähle eine Plattform aus, um zu uns zu stoßen:</p>
         
-        <p>Tritt unserer Community bei:</p>
-        
-        <a href="https://discord.gg/DEIN-CODE" target="_blank" class="btn btn-discord">
-            Unserem Discord beitreten
-        </a>
+        <div class="button-list">
+            <a href="https://discord.gg/deincode" target="_blank" class="btn discord-btn">Unser Discord</a>
+            <a href="minecraft:deine.server-ip.de" class="btn mc-btn">Minecraft Server</a>
+        </div>
 
-        <a href="minecraft:play.beispiel-server.de" class="btn btn-minecraft">
-            Minecraft Server starten
-        </a>
-        
-        <div class="server-ip">
-            IP: play.beispiel-server.de
+        <div class="ip-box">
+            IP: deine.server-ip.de
         </div>
     </div>
 
 </body>
-</html
+</html>
