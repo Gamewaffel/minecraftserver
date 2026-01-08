@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Server Hub | GitHub Edition</title>
+    <title>Minecraft Server Hub</title>
     <style>
         * { box-sizing: border-box; }
 
@@ -17,42 +17,30 @@
             align-items: center;
             color: white;
             
-            /* Hintergrundbild von einer stabilen Quelle */
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                        url('https://wallpaperaccess.com/full/245451.jpg');
+            /* NEUER MINECRAFT LINK */
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://minecraft.wiki/images/thumb/Panorama_Update_Aquatic.png/1200px-Panorama_Update_Aquatic.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         .container {
-            background: rgba(25, 25, 25, 0.9);
-            padding: 2rem;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 2.5rem;
             border-radius: 15px;
-            border: 3px solid #555;
+            border: 2px solid #3e8e41;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
             width: 90%;
             max-width: 450px;
         }
 
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: 2px;
-            color: #fff;
-        }
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 2px 2px #000; }
+        .description { color: #ddd; margin-bottom: 2rem; }
 
-        .description {
-            color: #ccc;
-            margin-bottom: 2rem;
-        }
-
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
+        .links { display: flex; flex-direction: column; gap: 1rem; }
 
         .btn {
             display: block;
@@ -60,56 +48,28 @@
             text-decoration: none;
             color: white;
             font-weight: bold;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            border-radius: 5px;
+            transition: 0.3s;
             font-size: 1.1rem;
-            border: 2px solid transparent;
+            text-transform: uppercase;
         }
 
-        /* Discord Style */
-        .discord {
-            background-color: #5865F2;
-        }
-        .discord:hover {
-            background-color: #4752C4;
-            transform: translateY(-2px);
-        }
+        .discord { background-color: #5865F2; border-bottom: 4px solid #3a45c3; }
+        .discord:hover { background-color: #4752C4; transform: scale(1.02); }
 
-        /* Minecraft Style */
-        .minecraft {
-            background-color: #3e8e41;
-            border-bottom: 4px solid #255527;
-        }
-        .minecraft:hover {
-            background-color: #4CAF50;
-            transform: translateY(-2px);
-        }
+        .minecraft { background-color: #3e8e41; border-bottom: 4px solid #255527; }
+        .minecraft:hover { background-color: #4CAF50; transform: scale(1.02); }
 
         .ip-copy {
             margin-top: 1.5rem;
             background: #111;
-            padding: 10px;
+            padding: 12px;
             border-radius: 5px;
             cursor: pointer;
-            border: 1px dashed #777;
+            border: 1px solid #444;
         }
 
-        .ip-copy:hover {
-            border-color: #4CAF50;
-        }
-
-        .ip-label {
-            display: block;
-            font-size: 0.7rem;
-            color: #888;
-            text-transform: uppercase;
-        }
-
-        #ip-text {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.1rem;
-            color: #4CAF50;
-        }
+        #ip-text { font-family: monospace; color: #4CAF50; font-size: 1.2rem; }
     </style>
 </head>
 <body>
@@ -119,17 +79,12 @@
         <p class="description">Werde Teil unserer Welt!</p>
 
         <div class="links">
-            <a href="https://discord.gg/deincode" target="_blank" class="discord btn">
-                Discord Community
-            </a>
-
-            <a href="#" class="minecraft btn" onclick="copyIP()">
-                Server beitreten
-            </a>
+            <a href="https://discord.gg/DEIN-CODE" target="_blank" class="discord btn">Discord Community</a>
+            <a href="#" class="minecraft btn" onclick="copyIP()">Server beitreten</a>
         </div>
 
         <div class="ip-copy" onclick="copyIP()">
-            <span class="ip-label">Klicken zum Kopieren der IP:</span>
+            <div style="font-size: 0.7rem; color: #888; margin-bottom: 5px;">KLICKEN ZUM KOPIEREN:</div>
             <span id="ip-text">deine.server-ip.de</span>
         </div>
     </div>
@@ -138,7 +93,7 @@
         function copyIP() {
             const ip = document.getElementById('ip-text').innerText;
             navigator.clipboard.writeText(ip);
-            alert("IP kopiert! Du kannst sie jetzt in Minecraft unter 'Server hinzufügen' einfügen.");
+            alert("IP kopiert: " + ip);
         }
     </script>
 
