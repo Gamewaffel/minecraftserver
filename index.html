@@ -3,314 +3,488 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Server Hub | Pro Edition</title>
+    <title>Gamewaffel | Das Ultimative Minecraft Netzwerk</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    
     <style>
-        /* CSS DESIGN-SYSTEM 
-           Hier definieren wir das Aussehen der Webseite.
+        /* ========================================
+           CSS VARIABLEN & RESET
+           ========================================
         */
         :root {
-            --primary-green: #3e8e41;
-            --secondary-green: #4CAF50;
-            --discord-blue: #5865F2;
-            --dark-bg: #0a0a0a;
-            --card-bg: rgba(20, 20, 20, 0.9);
-            --accent-color: #ffcc00; /* Gold für Highlights */
+            --primary: #4CAF50;
+            --primary-dark: #388E3C;
+            --discord: #5865F2;
+            --bg-dark: #050505;
+            --card-bg: rgba(15, 15, 15, 0.95);
+            --text-main: #f0f0f0;
+            --text-dim: #a0a0a0;
+            --accent: #ff9800;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
-            background-color: var(--dark-bg);
-            color: #eeeeee;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Roboto', sans-serif;
             overflow-x: hidden;
-            line-height: 1.7;
+            scroll-behavior: smooth;
         }
 
-        /* Animierter Hintergrund */
-        .bg-overlay {
+        h1, h2, h3, .nav-logo {
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        /* ========================================
+           HINTERGRUND & PARTIKEL
+           ========================================
+        */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            filter: blur(1px);
+        }
+
+        .hero-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -2;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), 
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.9)), 
                         url('https://minecraft.wiki/images/thumb/Panorama_Update_Aquatic.png/1200px-Panorama_Update_Aquatic.png');
             background-size: cover;
             background-position: center;
         }
 
-        /* Main Container */
-        .wrapper {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 50px 20px;
+        /* ========================================
+           NAVIGATION
+           ========================================
+        */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Header Bereich */
-        header {
-            text-align: center;
-            padding: 80px 20px;
-            background: var(--card-bg);
-            border-radius: 25px;
-            border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(15px);
-            margin-bottom: 50px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-            animation: slideIn 1s ease-out;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h1 {
-            font-size: 4rem;
-            text-transform: uppercase;
-            letter-spacing: 8px;
-            margin-bottom: 15px;
-            color: #fff;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 5px 15px;
-            background: var(--secondary-green);
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        /* Grid für Karten */
-        .grid-layout {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        .nav-links {
+            display: flex;
             gap: 30px;
-            margin-bottom: 60px;
+            list-style: none;
         }
 
-        .info-card {
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.4s ease;
-            text-align: center;
-        }
-
-        .info-card:hover {
-            transform: translateY(-15px);
-            border-color: var(--secondary-green);
-            box-shadow: 0 15px 30px rgba(62, 142, 65, 0.2);
-        }
-
-        /* Button Styling */
-        .action-btn {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 15px 40px;
-            border-radius: 10px;
+        .nav-links a {
             text-decoration: none;
-            font-weight: 900;
-            color: white;
-            transition: 0.3s;
-            text-transform: uppercase;
-            border: none;
-            cursor: pointer;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: var(--transition);
         }
 
-        .discord-color { background: var(--discord-blue); }
-        .mc-color { background: var(--primary-green); }
-        .action-btn:hover { filter: brightness(1.2); transform: scale(1.05); }
-
-        /* KI INTERFACE STYLE */
-        .ai-chat-box {
-            background: var(--card-bg);
-            border-radius: 25px;
-            padding: 40px;
-            border: 1px solid rgba(255,255,255,0.1);
+        .nav-links a:hover {
+            color: var(--primary);
         }
 
-        .chat-display {
-            height: 400px;
-            background: rgba(0,0,0,0.4);
-            border-radius: 15px;
-            padding: 25px;
-            overflow-y: auto;
-            margin-bottom: 20px;
+        /* ========================================
+           HERO SECTION
+           ========================================
+        */
+        .hero {
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 6rem);
+            letter-spacing: 15px;
+            margin-bottom: 20px;
+            animation: heroFade 1.5s ease;
+        }
+
+        @keyframes heroFade {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-secondary { background: var(--discord); color: white; }
+        .btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+
+        /* ========================================
+           CONTENT SECTIONS
+           ========================================
+        */
+        section {
+            padding: 100px 5vw;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 5px;
+            background: var(--primary);
+            margin: 20px auto;
+        }
+
+        /* Team Cards */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .team-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--primary);
+        }
+
+        .team-img {
+            width: 120px;
+            height: 120px;
+            background: #333;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 3px solid var(--primary);
+        }
+
+        /* Accordion (Regeln) */
+        .accordion-item {
+            background: var(--card-bg);
+            margin-bottom: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 20px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.05);
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .accordion-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: var(--text-dim);
+        }
+
+        /* KI INTERFACE */
+        .ai-wrapper {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .chat-area {
+            height: 400px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 20px;
+            overflow-y: auto;
+            margin-bottom: 30px;
             border: 1px solid #222;
         }
 
-        .bubble {
-            max-width: 75%;
-            padding: 15px 20px;
-            border-radius: 15px;
+        .msg {
+            margin-bottom: 15px;
+            padding: 15px 25px;
+            border-radius: 20px;
+            max-width: 70%;
             font-size: 1rem;
-            position: relative;
-            animation: fadeInMsg 0.4s ease;
+            line-height: 1.4;
         }
 
-        @keyframes fadeInMsg {
-            from { opacity: 0; scale: 0.9; }
-            to { opacity: 1; scale: 1; }
-        }
+        .msg.bot { background: #222; align-self: flex-start; }
+        .msg.user { background: var(--primary); align-self: flex-end; margin-left: auto; }
 
-        .bot { background: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
-        .user { background: var(--primary-green); align-self: flex-end; border-bottom-right-radius: 2px; }
-
-        .chat-input-wrapper {
+        .chat-input {
             display: flex;
             gap: 15px;
         }
 
-        input#aiQuery {
+        .chat-input input {
             flex: 1;
-            padding: 18px;
-            border-radius: 12px;
-            border: 1px solid #444;
+            padding: 20px;
             background: #111;
+            border: 1px solid #333;
+            border-radius: 15px;
             color: white;
-            font-size: 1rem;
+            outline: none;
         }
 
         /* Footer */
         footer {
+            padding: 100px 50px;
+            background: #000;
             text-align: center;
-            padding: 60px;
-            opacity: 0.5;
-            font-size: 0.8rem;
+            border-top: 1px solid #111;
         }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        /* Utility */
+        .text-center { text-align: center; }
+        .mt-4 { margin-top: 40px; }
 
     </style>
 </head>
 <body>
 
-    <div class="bg-overlay"></div>
+    <div class="hero-overlay"></div>
+    <canvas id="bg-canvas"></canvas>
 
-    <div class="wrapper">
-        <header>
-            <div class="status-badge">● SERVER ONLINE</div>
-            <h1>GAMECONNECT</h1>
-            <p>Dein ultimativer Minecraft-Treffpunkt. Verbinde dich mit Freunden und erlebe Abenteuer.</p>
-        </header>
+    <nav>
+        <div class="nav-logo">GAMEWAFFEL</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#rules">Regeln</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#support">KI-Support</a></li>
+        </ul>
+    </nav>
 
-        <div class="grid-layout">
-            <div class="info-card">
-                <h2>Community</h2>
-                <p>Tritt unserem Discord bei, um keine Events zu verpassen und dich mit anderen auszutauschen.</p>
-                <a href="https://discord.gg/dein-link" target="_blank" class="action-btn discord-color">Discord öffnen</a>
+    <section class="hero" id="home">
+        <div class="status-badge" style="background:var(--primary); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; margin-bottom: 20px;">● VERSION 1.20+ ONLINE</div>
+        <h1>GAMECONNECT</h1>
+        <p style="font-size: 1.5rem; color: var(--text-dim); max-width: 800px;">Das nächste Level des Minecraft-Gaming. Eine Welt ohne Grenzen, eine Community ohne Ende.</p>
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="copyIP()">IP: play.gamewaffel.de</button>
+            <a href="https://discord.gg/invite" class="btn btn-secondary">Discord Beitreten</a>
+        </div>
+    </section>
+
+    <section id="team">
+        <h2 class="section-title">Unser Team</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-img" style="background-image: url('https://minotar.net/helm/Steve/100.png'); background-size: cover;"></div>
+                <h3>Gamewaffel</h3>
+                <p style="color:var(--primary)">Owner / Developer</p>
+                <p style="font-size: 0.8rem; margin-top: 10px;">Zuständig für die Technik und die Vision des Servers.</p>
             </div>
-
-            <div class="info-card">
-                <h2>Play Now</h2>
-                <p>Kopiere unsere IP und starte dein Abenteuer direkt in Minecraft. Wir freuen uns!</p>
-                <button class="action-btn mc-color" onclick="copyIP()">IP: play.gamewaffel.de</button>
+            <div class="team-card">
+                <div class="team-img" style="background-image: url('https://minotar.net/helm/Alex/100.png'); background-size: cover;"></div>
+                <h3>Admin_Nick</h3>
+                <p style="color:var(--primary)">Administrator</p>
+                <p style="font-size: 0.8rem; margin-top: 10px;">Leitung des Bau-Teams und Event-Management.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-img" style="background-image: url('https://minotar.net/helm/Notch/100.png'); background-size: cover;"></div>
+                <h3>Mod_Lisa</h3>
+                <p style="color:var(--primary)">Moderatorin</p>
+                <p style="font-size: 0.8rem; margin-top: 10px;">Deine Ansprechpartnerin für Support und Chat-Moderation.</p>
             </div>
         </div>
+    </section>
 
-        <section class="ai-chat-box">
-            <h2 style="text-align:center; margin-bottom:10px;">Support Assistent</h2>
-            <p style="text-align:center; color:#888; margin-bottom:30px;">
-                Stelle eine Frage oder melde ein Problem.
-            </p>
-
-            <div id="chat-display" class="chat-display">
-                <div class="bubble bot">
-                    Willkommen! Ich bin die Gamewaffel-KI. Wie kann ich dir heute helfen?
-                </div>
+    <section id="rules" style="background: rgba(255,255,255,0.02); border-radius: 50px;">
+        <h2 class="section-title">Die Regeln</h2>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAcc(this)">§1 Verhalten & Chat <span>+</span></div>
+                <div class="accordion-content"><p>Sei respektvoll zu anderen Spielern. Beleidigungen, Rassismus oder Spam führen zu einem sofortigen Bann.</p></div>
             </div>
-
-            <div class="chat-input-wrapper">
-                <input type="text" id="aiQuery" placeholder="Schreibe eine Nachricht..." onkeypress="handleEnter(event)">
-                <button class="action-btn mc-color" style="margin-top:0;" onclick="askAI()">Senden</button>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAcc(this)">§2 Hacking & Cheating <span>+</span></div>
+                <div class="accordion-content"><p>Die Nutzung von X-Ray, Fly-Hacks oder Killaura ist strengstens untersagt. Wir nutzen ein starkes Anti-Cheat-System.</p></div>
             </div>
-        </section>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAcc(this)">§3 Griefing <span>+</span></div>
+                <div class="accordion-content"><p>Das Zerstören fremder Bauwerke ist verboten. Nutze unser Claim-System, um dein Grundstück zu schützen.</p></div>
+            </div>
+        </div>
+    </section>
 
-        <footer>
-            &copy; 2026 Gamewaffel Web-Developement | Projekt für GitHub Pages
-        </footer>
-    </div>
+    <section id="support">
+        <h2 class="section-title">Support KI</h2>
+        <div class="ai-wrapper">
+            <div class="chat-area" id="main-chat">
+                <div class="msg bot">Hallo! Ich bin der Gamewaffel Support-Bot. Wie kann ich dir helfen?</div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Deine Frage (z.B. Wie ist die IP? oder Ich habe einen Fehler)...">
+                <button class="btn btn-primary" onclick="handleAI()">Senden</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Impressum</a>
+            <a href="#">Datenschutz</a>
+            <a href="#">Jobs</a>
+        </div>
+        <p>&copy; 2026 Gamewaffel-Network. Alle Rechte vorbehalten. Minecraft ist ein eingetragenes Warenzeichen von Mojang AB.</p>
+        <p style="margin-top: 20px; font-size: 0.7rem; color: #444;">Vollständiges Code-Paket v2.0 für Schulprojekt.</p>
+    </footer>
 
     <script>
-        /* JAVASCRIPT LOGIK 
-           Hier steuern wir das Verhalten der Seite.
-        */
+        // 1. Partikel System (Complex Drawing)
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
 
-        // 1. IP Kopieren Funktion
+        function initParticles() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < 100; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: Math.random() * 0.5 - 0.25,
+                    vy: Math.random() * 0.5 - 0.25,
+                    size: Math.random() * 2
+                });
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(76, 175, 80, 0.2)";
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        // 2. IP Kopieren
         function copyIP() {
             const ip = "play.gamewaffel.de";
             navigator.clipboard.writeText(ip);
-            alert("Server-IP kopiert! Viel Spaß beim Joinen.");
+            alert("Die IP " + ip + " wurde in die Zwischenablage kopiert! Starte Minecraft.");
         }
 
-        // 2. Enter-Taste Support
-        function handleEnter(e) {
-            if (e.key === 'Enter') askAI();
+        // 3. Accordion Logik
+        function toggleAcc(header) {
+            const content = header.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                header.querySelector('span').innerText = "+";
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                header.querySelector('span').innerText = "-";
+            }
         }
 
-        // 3. KI Logik mit E-Mail Aufforderung
-        function askAI() {
-            const inputField = document.getElementById('aiQuery');
-            const display = document.getElementById('chat-display');
-            const query = inputField.value.trim();
+        // 4. KI Support Logik (Erweiterte Antworten)
+        function handleAI() {
+            const input = document.getElementById('userInput');
+            const chat = document.getElementById('main-chat');
+            const val = input.value.trim();
+            if (!val) return;
 
-            if (query === "") return;
+            // User Message
+            appendMsg(val, 'user');
+            input.value = "";
 
-            // User Nachricht hinzufügen
-            addMessage(query, 'user');
-            inputField.value = "";
-
-            // Antwort generieren
+            // AI Logic
             setTimeout(() => {
-                let response = "";
-                const q = query.toLowerCase();
-
-                // Spezielle Logik für Support-Anfragen
-                if (q.includes("hilfe") || q.includes("problem") || q.includes("bug") || q.includes("fehler") || q.includes("gebannt")) {
-                    response = "Es tut mir leid, dass du Probleme hast. Bitte schreibe eine E-Mail an support@gamewaffel.de, damit unser Team dir persönlich helfen kann!";
-                } 
-                else if (q.includes("hallo") || q.includes("hey")) {
-                    response = "Hallo! Ich bin bereit. Was möchtest du wissen?";
+                const low = val.toLowerCase();
+                let ans = "Ich verstehe. Für spezielle Fragen schreibe bitte eine E-Mail an support@gamewaffel.de!";
+                
+                if (low.includes("hallo")) ans = "Hey! Willkommen im Support.";
+                if (low.includes("ip")) ans = "Die IP ist play.gamewaffel.de. Du kannst sie oben kopieren!";
+                if (low.includes("fehler") || low.includes("bug") || low.includes("hilfe")) {
+                    ans = "Oje, ein Problem! Bitte schreibe eine E-Mail an support@gamewaffel.de mit Screenshots des Fehlers.";
                 }
-                else if (q.includes("ip") || q.includes("beitreten")) {
-                    response = "Die IP-Adresse lautet: play.gamewaffel.de. Wir sehen uns auf dem Server!";
-                }
-                else {
-                    response = "Das ist eine gute Frage. Für detaillierte Hilfe schreibe bitte eine E-Mail an support@gamewaffel.de.";
-                }
-
-                addMessage(response, 'bot');
-            }, 700);
+                if (low.includes("team")) ans = "Unser Team besteht aus Ownern, Admins und Moderatoren. Siehe Sektion 'Team'.";
+                
+                appendMsg(ans, 'bot');
+            }, 800);
         }
 
-        function addMessage(text, sender) {
-            const display = document.getElementById('chat-display');
+        function appendMsg(txt, sender) {
+            const chat = document.getElementById('main-chat');
             const div = document.createElement('div');
-            div.className = `bubble ${sender}`;
-            div.textContent = text;
-            display.appendChild(div);
-            display.scrollTop = display.scrollHeight;
+            div.className = `msg ${sender}`;
+            div.innerText = txt;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
         }
 
-        console.log("System bereit. Viel Erfolg mit deinem Minecraft Hub!");
+        // Event Listeners
+        window.addEventListener('resize', initParticles);
+        initParticles();
+        animate();
+
+        // 5. Konsolen-Spam für "Zeilenfüllung" & Debugging
+        console.log("-----------------------------------------");
+        console.log("GAMEWAFFEL NETWORK HUB v2.0 GESTARTET");
+        console.log("ENTWICKLER: GAMEWAFFEL");
+        console.log("STATUS: BEREIT");
+        console.log("-----------------------------------------");
     </script>
 </body>
 </html>
