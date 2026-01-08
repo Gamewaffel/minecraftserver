@@ -3,357 +3,314 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Server Hub | Gamewaffel</title>
+    <title>Ultimate Server Hub | Pro Edition</title>
     <style>
-        /* CSS SEKTION - DESIGN & ANIMATIONEN 
+        /* CSS DESIGN-SYSTEM 
+           Hier definieren wir das Aussehen der Webseite.
         */
         :root {
             --primary-green: #3e8e41;
             --secondary-green: #4CAF50;
             --discord-blue: #5865F2;
-            --dark-bg: #0f0f0f;
-            --glass-bg: rgba(20, 20, 20, 0.85);
-            --border-color: rgba(255, 255, 255, 0.1);
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(20, 20, 20, 0.9);
+            --accent-color: #ffcc00; /* Gold für Highlights */
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
             background-color: var(--dark-bg);
-            color: #ffffff;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #eeeeee;
             overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        /* Dynamischer Hintergrund mit Overlay */
-        .background-wrapper {
+        /* Animierter Hintergrund */
+        .bg-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -2;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), 
                         url('https://minecraft.wiki/images/thumb/Panorama_Update_Aquatic.png/1200px-Panorama_Update_Aquatic.png');
             background-size: cover;
             background-position: center;
         }
 
-        /* Partikel Animation (Simulierter Schnee/Asche) */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
+        /* Main Container */
+        .wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 20px;
         }
 
-        /* Container & Layout */
-        .main-content {
-            max-width: 1000px;
-            margin: 100px auto;
-            padding: 20px;
-        }
-
-        /* Hero Section */
-        .hero {
+        /* Header Bereich */
+        header {
             text-align: center;
-            padding: 60px 20px;
-            background: var(--glass-bg);
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-            margin-bottom: 40px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            animation: fadeIn 1.5s ease-out;
+            padding: 80px 20px;
+            background: var(--card-bg);
+            border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            margin-bottom: 50px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
-            font-size: 3.5rem;
-            letter-spacing: 5px;
-            margin-bottom: 10px;
-            text-shadow: 4px 4px #000;
-            color: #fff;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--secondary-green);
-            font-weight: bold;
+            font-size: 4rem;
             text-transform: uppercase;
+            letter-spacing: 8px;
+            margin-bottom: 15px;
+            color: #fff;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
 
-        /* Grid für Features */
-        .grid {
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--secondary-green);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Grid für Karten */
+        .grid-layout {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
         }
 
-        .card {
-            background: var(--glass-bg);
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s ease, border-color 0.3s;
+        .info-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
             text-align: center;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
+        .info-card:hover {
+            transform: translateY(-15px);
             border-color: var(--secondary-green);
+            box-shadow: 0 15px 30px rgba(62, 142, 65, 0.2);
         }
 
-        /* Buttons */
-        .btn {
+        /* Button Styling */
+        .action-btn {
             display: inline-block;
-            padding: 15px 35px;
-            margin-top: 20px;
-            border-radius: 8px;
+            margin-top: 25px;
+            padding: 15px 40px;
+            border-radius: 10px;
             text-decoration: none;
+            font-weight: 900;
             color: white;
-            font-weight: bold;
             transition: 0.3s;
             text-transform: uppercase;
-            cursor: pointer;
             border: none;
+            cursor: pointer;
         }
 
-        .btn-discord { background: var(--discord-blue); box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4); }
-        .btn-discord:hover { background: #4752c4; filter: brightness(1.1); }
+        .discord-color { background: var(--discord-blue); }
+        .mc-color { background: var(--primary-green); }
+        .action-btn:hover { filter: brightness(1.2); transform: scale(1.05); }
 
-        .btn-mc { background: var(--primary-green); box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4); }
-        .btn-mc:hover { background: var(--secondary-green); filter: brightness(1.1); }
-
-        /* KI Interface Sektion */
-        .ai-section {
-            background: var(--glass-bg);
-            border-radius: 20px;
+        /* KI INTERFACE STYLE */
+        .ai-chat-box {
+            background: var(--card-bg);
+            border-radius: 25px;
             padding: 40px;
-            border: 1px solid var(--border-color);
-            margin-top: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        #chat-window {
-            height: 350px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 10px;
-            padding: 20px;
+        .chat-display {
+            height: 400px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 15px;
+            padding: 25px;
             overflow-y: auto;
             margin-bottom: 20px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            border: 1px solid #333;
+            gap: 15px;
+            border: 1px solid #222;
         }
 
-        .message {
-            max-width: 80%;
-            padding: 12px 18px;
-            border-radius: 10px;
-            font-size: 0.95rem;
+        .bubble {
+            max-width: 75%;
+            padding: 15px 20px;
+            border-radius: 15px;
+            font-size: 1rem;
+            position: relative;
+            animation: fadeInMsg 0.4s ease;
         }
 
-        .user-msg {
-            background: var(--primary-green);
-            align-self: flex-end;
-            border-bottom-right-radius: 2px;
+        @keyframes fadeInMsg {
+            from { opacity: 0; scale: 0.9; }
+            to { opacity: 1; scale: 1; }
         }
 
-        .ai-msg {
-            background: #333;
-            align-self: flex-start;
-            border-bottom-left-radius: 2px;
-        }
+        .bot { background: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
+        .user { background: var(--primary-green); align-self: flex-end; border-bottom-right-radius: 2px; }
 
-        .input-area {
+        .chat-input-wrapper {
             display: flex;
-            gap: 10px;
+            gap: 15px;
         }
 
-        .input-area input {
+        input#aiQuery {
             flex: 1;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 18px;
+            border-radius: 12px;
             border: 1px solid #444;
             background: #111;
             color: white;
-            outline: none;
+            font-size: 1rem;
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 40px;
-            color: #666;
-            font-size: 0.9rem;
+            padding: 60px;
+            opacity: 0.5;
+            font-size: 0.8rem;
         }
-
-        /* Keyframes für Animationen */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0f0f0f; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--primary-green); }
 
     </style>
 </head>
 <body>
 
-    <div class="background-wrapper"></div>
-    <canvas class="particles" id="particleCanvas"></canvas>
+    <div class="bg-overlay"></div>
 
-    <div class="main-content">
-        <header class="hero">
-            <div class="subtitle">Willkommen bei Gamewaffel</div>
-            <h1>MC SERVER HUB</h1>
-            <p>Dein Portal zu einer neuen Community. Tritt bei und werde Teil der Legende.</p>
-            <div style="margin-top: 30px;">
-                <a href="#join" class="btn btn-mc">Jetzt Loslegen</a>
-            </div>
+    <div class="wrapper">
+        <header>
+            <div class="status-badge">● SERVER ONLINE</div>
+            <h1>GAMECONNECT</h1>
+            <p>Dein ultimativer Minecraft-Treffpunkt. Verbinde dich mit Freunden und erlebe Abenteuer.</p>
         </header>
 
-        <div class="grid" id="join">
-            <div class="card">
-                <h3>Discord</h3>
-                <p>Diskutiere mit anderen Spielern, erhalte Support und bleib auf dem Laufenden.</p>
-                <a href="https://discord.gg/dein-link" class="btn btn-discord">Server beitreten</a>
+        <div class="grid-layout">
+            <div class="info-card">
+                <h2>Community</h2>
+                <p>Tritt unserem Discord bei, um keine Events zu verpassen und dich mit anderen auszutauschen.</p>
+                <a href="https://discord.gg/dein-link" target="_blank" class="action-btn discord-color">Discord öffnen</a>
             </div>
 
-            <div class="card">
-                <h3>Minecraft Server</h3>
-                <p>Unser Server bietet Survival, Citybuild und Events. IP kopieren und rein!</p>
-                <button class="btn btn-mc" onclick="copyIP()">IP: play.beispiel.de</button>
+            <div class="info-card">
+                <h2>Play Now</h2>
+                <p>Kopiere unsere IP und starte dein Abenteuer direkt in Minecraft. Wir freuen uns!</p>
+                <button class="action-btn mc-color" onclick="copyIP()">IP: play.gamewaffel.de</button>
             </div>
         </div>
 
-        <section class="ai-section">
-            <h2 style="margin-bottom: 20px; text-align: center;">Support KI</h2>
-            <p style="text-align: center; margin-bottom: 20px; color: #aaa;">
-                Frag unsere KI nach Server-Regeln oder Hilfe.
+        <section class="ai-chat-box">
+            <h2 style="text-align:center; margin-bottom:10px;">Support Assistent</h2>
+            <p style="text-align:center; color:#888; margin-bottom:30px;">
+                Stelle eine Frage oder melde ein Problem.
             </p>
-            
-            <div id="chat-window">
-                <div class="message ai-msg">
-                    Hallo! Ich bin der Gamewaffel-Bot. Wie kann ich dir heute helfen?
+
+            <div id="chat-display" class="chat-display">
+                <div class="bubble bot">
+                    Willkommen! Ich bin die Gamewaffel-KI. Wie kann ich dir heute helfen?
                 </div>
             </div>
 
-            <div class="input-area">
-                <input type="text" id="userInput" placeholder="Deine Frage an die KI...">
-                <button class="btn btn-mc" style="margin-top:0;" onclick="sendMessage()">Senden</button>
+            <div class="chat-input-wrapper">
+                <input type="text" id="aiQuery" placeholder="Schreibe eine Nachricht..." onkeypress="handleEnter(event)">
+                <button class="action-btn mc-color" style="margin-top:0;" onclick="askAI()">Senden</button>
             </div>
         </section>
 
-        <div class="card" style="margin-top: 40px;">
-            <h3>Über das Projekt</h3>
-            <p>Diese Webseite dient als zentraler Hub für alle unsere Gaming-Aktivitäten. Wir legen Wert auf Performance und Nutzerfreundlichkeit.</p>
-            <div style="display: flex; justify-content: space-around; margin-top: 20px; color: var(--secondary-green);">
-                <span>100% Survival</span>
-                <span>Active Staff</span>
-                <span>No Lag</span>
-            </div>
-        </div>
-
         <footer>
-            &copy; 2026 Gamewaffel Gaming | Made with Code
+            &copy; 2026 Gamewaffel Web-Developement | Projekt für GitHub Pages
         </footer>
     </div>
 
     <script>
-        /* JAVASCRIPT SEKTION - LOGIK & EFFEKTE 
+        /* JAVASCRIPT LOGIK 
+           Hier steuern wir das Verhalten der Seite.
         */
 
         // 1. IP Kopieren Funktion
         function copyIP() {
-            const ip = "play.beispiel.de";
+            const ip = "play.gamewaffel.de";
             navigator.clipboard.writeText(ip);
-            alert("Die Server-IP wurde kopiert! Viel Spaß beim Spielen.");
+            alert("Server-IP kopiert! Viel Spaß beim Joinen.");
         }
 
-        // 2. KI Chat Logik
-        function sendMessage() {
-            const input = document.getElementById('userInput');
-            const window = document.getElementById('chat-window');
-            const text = input.value.trim();
+        // 2. Enter-Taste Support
+        function handleEnter(e) {
+            if (e.key === 'Enter') askAI();
+        }
 
-            if (text === "") return;
+        // 3. KI Logik mit E-Mail Aufforderung
+        function askAI() {
+            const inputField = document.getElementById('aiQuery');
+            const display = document.getElementById('chat-display');
+            const query = inputField.value.trim();
 
-            // User Nachricht
-            const userDiv = document.createElement('div');
-            userDiv.className = 'message user-msg';
-            userDiv.textContent = text;
-            window.appendChild(userDiv);
-            input.value = "";
+            if (query === "") return;
 
-            // KI Antwort Simulation
+            // User Nachricht hinzufügen
+            addMessage(query, 'user');
+            inputField.value = "";
+
+            // Antwort generieren
             setTimeout(() => {
-                const aiDiv = document.createElement('div');
-                aiDiv.className = 'message ai-msg';
-                
-                let answer = "Das ist eine interessante Frage! Ich lerne noch. Schau doch mal im Wiki nach oder frag ein Teammitglied.";
-                
-                if(text.toLowerCase().includes("hallo")) answer = "Sei gegrüßt, Abenteurer!";
-                if(text.toLowerCase().includes("ip")) answer = "Die IP ist play.beispiel.de. Wir freuen uns auf dich!";
-                if(text.toLowerCase().includes("admin")) answer = "Die Admins sind meistens abends im Discord erreichbar.";
-                if(text.toLowerCase().includes("regeln")) answer = "Ganz einfach: Kein Griefing, kein Hacking, sei nett!";
+                let response = "";
+                const q = query.toLowerCase();
 
-                aiDiv.textContent = answer;
-                window.appendChild(aiDiv);
-                window.scrollTop = window.scrollHeight;
-            }, 800);
+                // Spezielle Logik für Support-Anfragen
+                if (q.includes("hilfe") || q.includes("problem") || q.includes("bug") || q.includes("fehler") || q.includes("gebannt")) {
+                    response = "Es tut mir leid, dass du Probleme hast. Bitte schreibe eine E-Mail an support@gamewaffel.de, damit unser Team dir persönlich helfen kann!";
+                } 
+                else if (q.includes("hallo") || q.includes("hey")) {
+                    response = "Hallo! Ich bin bereit. Was möchtest du wissen?";
+                }
+                else if (q.includes("ip") || q.includes("beitreten")) {
+                    response = "Die IP-Adresse lautet: play.gamewaffel.de. Wir sehen uns auf dem Server!";
+                }
+                else {
+                    response = "Das ist eine gute Frage. Für detaillierte Hilfe schreibe bitte eine E-Mail an support@gamewaffel.de.";
+                }
+
+                addMessage(response, 'bot');
+            }, 700);
         }
 
-        // 3. Partikel Effekt Canvas
-        const canvas = document.getElementById('particleCanvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function initParticles() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            for(let i=0; i<50; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 3 + 1,
-                    speed: Math.random() * 1 + 0.5
-                });
-            }
+        function addMessage(text, sender) {
+            const display = document.getElementById('chat-display');
+            const div = document.createElement('div');
+            div.className = `bubble ${sender}`;
+            div.textContent = text;
+            display.appendChild(div);
+            display.scrollTop = display.scrollHeight;
         }
 
-        function drawParticles() {
-            ctx.clearRect(0,0, canvas.width, canvas.height);
-            ctx.fillStyle = "rgba(255,255,255,0.3)";
-            particles.forEach(p => {
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
-                ctx.fill();
-                p.y += p.speed;
-                if(p.y > canvas.height) p.y = -10;
-            });
-            requestAnimationFrame(drawParticles);
-        }
-
-        initParticles();
-        drawParticles();
-
-        // 4. Konsolen Log für Neugierige
-        console.log("Webseite erfolgreich geladen. Willkommen im Code-Bereich!");
+        console.log("System bereit. Viel Erfolg mit deinem Minecraft Hub!");
     </script>
 </body>
 </html>
