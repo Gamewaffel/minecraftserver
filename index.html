@@ -212,16 +212,17 @@
         .color-player { color: #888; }
 
         /* ================================================================
-           6. REPORT SYSTEM (NEU)
+           6. REPORT SYSTEM
            ================================================================ */
         .report-section {
             max-width: 900px;
-            margin: 50px auto;
-            background: rgba(40, 0, 0, 0.4);
-            border: 1px solid var(--report-red);
+            margin: 80px auto;
+            background: rgba(30, 0, 0, 0.6);
+            border: 2px solid var(--report-red);
             border-radius: 30px;
             padding: 3rem;
             text-align: center;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.1);
         }
 
         .report-console {
@@ -229,41 +230,48 @@
             border-radius: 15px;
             padding: 1.5rem;
             font-family: 'Courier Prime', monospace;
-            margin-top: 20px;
-            border: 1px solid #333;
+            margin-top: 25px;
+            border: 1px solid #444;
+            box-shadow: inset 0 0 10px #111;
         }
 
         .report-input-wrapper {
             display: flex;
             gap: 10px;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         .report-input-wrapper input {
             flex: 1;
-            background: #111;
-            border: 1px solid var(--report-red);
-            padding: 12px;
+            background: #0a0a0a;
+            border: 1px solid #444;
+            padding: 15px;
             color: #ff4444;
-            border-radius: 8px;
+            border-radius: 10px;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .report-input-wrapper input:focus {
+            border-color: var(--report-red);
         }
 
         #report-list {
             text-align: left;
             margin-top: 20px;
-            max-height: 200px;
+            max-height: 250px;
             overflow-y: auto;
-            display: none; /* Erst sichtbar bei /see reports */
-            border-top: 1px dashed #555;
-            padding-top: 15px;
+            display: none;
+            border-top: 1px dashed #666;
+            padding-top: 20px;
         }
 
         .report-item {
             color: #ffaaaa;
-            font-size: 0.85rem;
-            margin-bottom: 5px;
-            border-left: 3px solid var(--report-red);
-            padding-left: 10px;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            border-left: 4px solid var(--report-red);
+            padding: 5px 12px;
+            background: rgba(255,0,0,0.05);
         }
 
         /* ================================================================
@@ -271,7 +279,7 @@
            ================================================================ */
         .ai-container {
             max-width: 900px;
-            margin: 50px auto;
+            margin: 80px auto;
             background: var(--card-surface);
             border-radius: 30px;
             padding: 3rem;
@@ -381,26 +389,8 @@
         </div>
     </section>
 
-    <section class="report-section" id="report">
-        <h2 style="color: var(--report-red);">Meldestelle</h2>
-        <p style="color: #ccc; font-size: 0.9rem;">Verhalte dich fair. Missbrauch der Report-Funktion wird bestraft.</p>
-        
-        <div class="report-console">
-            <div id="console-output" style="color: #777;">Verfügbare Befehle: /report [Name] [Grund]</div>
-            
-            <div id="report-list">
-                <div style="color: var(--report-red); margin-bottom: 10px;">-- AKTIVE REPORTS (Admin Ansicht) --</div>
-                </div>
-
-            <div class="report-input-wrapper">
-                <input type="text" id="report-cmd" placeholder="/report Spieler Grund..." onkeypress="if(event.key==='Enter') handleReport()">
-                <button class="btn btn-green" style="padding: 10px 20px; font-size: 0.8rem; background: #440000; border: 1px solid red;" onclick="handleReport()">Ausführen</button>
-            </div>
-        </div>
-    </section>
-
     <section class="team-section" id="spieler" style="background: rgba(0,0,0,0.1);">
-        <h2 style="text-align:center; font-size:3rem; margin-bottom:1rem;">Spieler</h2>
+        <h2 style="text-align:center; font-size:3rem; margin-bottom:1rem;">Aktive Spieler</h2>
         <div class="team-grid">
             <div class="profile-card">
                 <div class="head-wrapper" style="border-color: #555;">
@@ -422,6 +412,24 @@
                 </div>
                 <span class="rank-label color-player">Spieler</span>
                 <h3>Theo271</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="report-section" id="report">
+        <h2 style="color: var(--report-red); text-transform: uppercase; letter-spacing: 5px;">Meldestelle</h2>
+        <p style="color: #aaa; margin-top: 10px;">Spieler-Meldungen werden direkt an das Team weitergeleitet.</p>
+        
+        <div class="report-console">
+            <div id="console-output" style="color: #666; font-size: 0.8rem;">SYTEM BEREIT. NUTZE: /report [Name] [Grund]</div>
+            
+            <div id="report-list">
+                <div style="color: gold; margin-bottom: 15px; border-bottom: 1px solid gold; display: inline-block;">GEHEIM-LOGBUCH (ADMINS)</div>
+                </div>
+
+            <div class="report-input-wrapper">
+                <input type="text" id="report-cmd" placeholder="/report Name Grund..." onkeypress="if(event.key==='Enter') handleReport()">
+                <button class="btn" style="padding: 10px 25px; margin:0; background: var(--report-red); font-size: 0.8rem;" onclick="handleReport()">SENDEN</button>
             </div>
         </div>
     </section>
@@ -486,32 +494,30 @@
             if (val.startsWith("/report ")) {
                 const parts = val.split(" ");
                 if (parts.length < 3) {
-                    output.innerText = "FEHLER: Bitte Grund angeben. Syntax: /report [Name] [Grund]";
-                    output.style.color = "red";
+                    output.innerText = "STATUS: FEHLGESCHLAGEN. Grund fehlt.";
+                    output.style.color = "#ff4444";
                 } else {
                     const name = parts[1];
                     const reason = parts.slice(2).join(" ");
-                    const reportObj = `[${new Date().toLocaleTimeString()}] SPIELER: ${name} | GRUND: ${reason}`;
-                    storedReports.push(reportObj);
+                    const reportEntry = `[MELDUNG] Spieler: ${name} | Grund: ${reason}`;
                     
-                    output.innerText = "ERFOLG: Spieler " + name + " wurde gemeldet.";
-                    output.style.color = "lime";
+                    output.innerText = "STATUS: ERFOLGREICH. Meldung an Team gesendet.";
+                    output.style.color = "#00ff00";
                     
-                    // Neues Item in die versteckte Liste packen
                     const div = document.createElement("div");
                     div.className = "report-item";
-                    div.innerText = reportObj;
+                    div.innerText = reportEntry;
                     list.appendChild(div);
                 }
             } 
             else if (val === "/see reports") {
                 list.style.display = "block";
-                output.innerText = "ADMIN-MODUS: Zeige alle Reports an.";
+                output.innerText = "STATUS: ADMIN-ZUGRIFF GEWÄHRT.";
                 output.style.color = "gold";
             }
             else {
-                output.innerText = "FEHLER: Unbekannter Befehl. Nutze /report Spieler Grund";
-                output.style.color = "red";
+                output.innerText = "STATUS: UNBEKANNTER BEFEHL.";
+                output.style.color = "#ff4444";
             }
             input.value = "";
         }
@@ -525,8 +531,8 @@
             input.value = "";
             setTimeout(() => {
                 const low = val.toLowerCase();
-                let reply = "Schreibe für Hilfe bitte eine E-Mail an support@gamewaffel.de oder nutze die Meldestelle oben!";
-                if (low.includes("hallo") || low.includes("hey")) reply = "Hey! Willkommen bei Gamewaffel. Wie kann ich helfen?";
+                let reply = "Bitte sende eine E-Mail an support@gamewaffel.de für Hilfe!";
+                if (low.includes("hallo") || low.includes("hey")) reply = "Hey! Wie kann ich dir auf Gamewaffel helfen?";
                 if (low.includes("ip")) reply = "Die IP ist: eu7118422.g-portal.game";
                 addMsg(reply, 'bot');
             }, 700);
