@@ -207,9 +207,8 @@
             margin-bottom: 8px;
         }
 
-        /* Farbanpassungen */
         .color-owner { color: var(--accent-gold); }
-        .color-admin { color: var(--primary-color); } /* Grün */
+        .color-admin { color: var(--primary-color); }
         .color-player { color: #888; }
         .color-red { color: #ff4444; }
         .color-blue { color: #5865F2; }
@@ -378,7 +377,7 @@
                 <span class="rank-label color-blue">Developer</span>
                 <h3>Tritim</h3>
             </div>
-            <div class="profile-card">
+             <div class="profile-card">
                 <div class="head-wrapper">
                     <img src="https://api.mineatar.io/face/7b9b0d01-0325-4cd2-8f0c-55d216160867?scale=12" alt="Franz27111111">
                 </div>
@@ -418,6 +417,27 @@
                 </div>
                 <span class="rank-label color-player">Spieler</span>
                 <h3>Theo271</h3>
+            </div>
+            <div class="profile-card">
+                <div class="head-wrapper" style="border-color: #555;">
+                    <img src="https://minotar.net/cube/Star_Cap_8/100.png" alt="Star_Cap_8">
+                </div>
+                <span class="rank-label color-player">Spieler</span>
+                <h3>Star_Cap_8</h3>
+            </div>
+            <div class="profile-card">
+                <div class="head-wrapper" style="border-color: #555;">
+                    <img src="https://minotar.net/cube/ILyxy/100.png" alt="ILyxy">
+                </div>
+                <span class="rank-label color-player">Spieler</span>
+                <h3>ILyxy</h3>
+            </div>
+            <div class="profile-card">
+                <div class="head-wrapper" style="border-color: #555;">
+                    <img src="https://minotar.net/cube/2011Leon/100.png" alt="2011Leon">
+                </div>
+                <span class="rank-label color-player">Spieler</span>
+                <h3>2011Leon</h3>
             </div>
         </div>
     </section>
@@ -489,8 +509,6 @@
         }
 
         // 3. REPORT LOGIK
-        let storedReports = [];
-
         function handleReport() {
             const input = document.getElementById('report-cmd');
             const output = document.getElementById('console-output');
