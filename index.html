@@ -22,6 +22,7 @@
             --accent-gold: #FFD700;
             --transition-speed: 0.4s;
             --report-red: #ff4444;
+            --event-purple: #9c27b0;
         }
 
         /* ================================================================
@@ -88,10 +89,10 @@
         .nav-links a {
             color: white;
             text-decoration: none;
-            margin-left: 2rem;
+            margin-left: 1.5rem;
             font-weight: 600;
             transition: var(--transition-speed);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
         }
 
@@ -156,61 +157,84 @@
         .btn:hover { transform: translateY(-5px); filter: brightness(1.2); }
 
         /* ================================================================
-           5. RULES SECTION (NEW)
+           5. RULES SECTION
            ================================================================ */
         .rules-section {
-            padding: 100px 10%;
-            background: rgba(0,0,0,0.5);
+            padding: 80px 10%;
+            background: rgba(0,0,0,0.4);
         }
 
-        .rules-container {
+        .rules-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
 
-        .rule-box {
+        .rule-card {
             background: var(--card-surface);
             padding: 2rem;
             border-radius: 20px;
-            border-left: 5px solid var(--primary-color);
+            border-bottom: 4px solid var(--primary-color);
+            text-align: center;
             transition: 0.3s;
         }
 
-        .rule-box:hover {
-            transform: scale(1.02);
-            background: rgba(30,30,30,0.95);
+        .rule-card:hover { transform: translateY(-10px); }
+        .rule-card h3 { color: var(--primary-color); margin-bottom: 1rem; text-transform: uppercase; }
+
+        /* ================================================================
+           6. EVENTS SECTION (ANIMATED)
+           ================================================================ */
+        .events-section {
+            padding: 100px 10%;
+            text-align: center;
         }
 
-        .rule-box h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .rule-box ul {
-            list-style: none;
-            color: var(--text-muted);
-        }
-
-        .rule-box ul li {
-            margin-bottom: 8px;
-            padding-left: 20px;
+        .event-banner {
+            background: linear-gradient(135deg, #2a0845 0%, #642b73 100%);
+            padding: 4rem 2rem;
+            border-radius: 30px;
+            border: 2px solid var(--event-purple);
             position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(156, 39, 176, 0.3);
+            animation: pulseGlow 3s infinite ease-in-out;
         }
 
-        .rule-box ul li::before {
-            content: "▹";
-            position: absolute;
-            left: 0;
-            color: var(--primary-color);
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 20px rgba(156, 39, 176, 0.3); }
+            50% { box-shadow: 0 0 60px rgba(156, 39, 176, 0.6); }
+            100% { box-shadow: 0 0 20px rgba(156, 39, 176, 0.3); }
+        }
+
+        .event-content h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, var(--event-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .event-tag {
+            display: inline-block;
+            background: var(--event-purple);
+            padding: 5px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         /* ================================================================
-           6. TEAM & PLAYER GRID
+           7. TEAM & PLAYER GRID
            ================================================================ */
         .team-section { padding: 80px 5%; background: rgba(0,0,0,0.3); }
         .team-grid {
@@ -232,156 +256,81 @@
             transition: 0.5s;
         }
 
-        .profile-card:hover {
-            transform: translateY(-20px);
-            border-color: var(--primary-color);
-        }
+        .profile-card:hover { transform: translateY(-20px); border-color: var(--primary-color); }
 
         .head-wrapper {
-            width: 110px;
-            height: 110px;
-            margin: 0 auto 1.5rem;
-            border: 4px solid var(--primary-color);
-            border-radius: 15px;
-            padding: 8px;
-            background: #1a1a1a;
+            width: 110px; height: 110px; margin: 0 auto 1.5rem;
+            border: 4px solid var(--primary-color); border-radius: 15px;
+            padding: 8px; background: #1a1a1a;
         }
 
-        .head-wrapper img {
-            width: 100%;
-            image-rendering: pixelated;
-        }
+        .head-wrapper img { width: 100%; image-rendering: pixelated; }
 
         .rank-label { 
-            display: block;
-            font-weight: bold; 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
-            font-size: 0.75rem;
-            margin-bottom: 8px;
+            display: block; font-weight: bold; text-transform: uppercase; 
+            letter-spacing: 2px; font-size: 0.75rem; margin-bottom: 8px;
         }
 
-        .color-owner { color: var(--accent-gold); }
         .color-admin { color: var(--primary-color); }
         .color-player { color: #888; }
         .color-red { color: #ff4444; }
         .color-blue { color: #5865F2; }
 
         /* ================================================================
-           7. REPORT SYSTEM
+           8. REPORT & SUPPORT (RESTLICHE STYLES BEIBEHALTEN)
            ================================================================ */
         .report-section {
-            max-width: 900px;
-            margin: 80px auto;
-            background: rgba(30, 0, 0, 0.6);
-            border: 2px solid var(--report-red);
-            border-radius: 30px;
-            padding: 3rem;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.1);
+            max-width: 900px; margin: 80px auto; background: rgba(30, 0, 0, 0.6);
+            border: 2px solid var(--report-red); border-radius: 30px; padding: 3rem;
+            text-align: center; box-shadow: 0 0 30px rgba(255, 0, 0, 0.1);
         }
 
         .report-console {
-            background: #000;
-            border-radius: 15px;
-            padding: 1.5rem;
-            font-family: 'Courier Prime', monospace;
-            margin-top: 25px;
-            border: 1px solid #444;
-            box-shadow: inset 0 0 10px #111;
+            background: #000; border-radius: 15px; padding: 1.5rem;
+            font-family: 'Courier Prime', monospace; margin-top: 25px;
+            border: 1px solid #444; box-shadow: inset 0 0 10px #111;
         }
 
-        .report-input-wrapper {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
+        .report-input-wrapper { display: flex; gap: 10px; margin-top: 20px; }
         .report-input-wrapper input {
-            flex: 1;
-            background: #0a0a0a;
-            border: 1px solid #444;
-            padding: 15px;
-            color: #ff4444;
-            border-radius: 10px;
+            flex: 1; background: #0a0a0a; border: 1px solid #444;
+            padding: 15px; color: #ff4444; border-radius: 10px;
             font-family: 'Courier Prime', monospace;
-        }
-
-        .report-input-wrapper input:focus {
-            border-color: var(--report-red);
         }
 
         #report-list {
-            text-align: left;
-            margin-top: 20px;
-            max-height: 250px;
-            overflow-y: auto;
-            display: none;
-            border-top: 1px dashed #666;
-            padding-top: 20px;
+            text-align: left; margin-top: 20px; max-height: 250px;
+            overflow-y: auto; display: none; border-top: 1px dashed #666; padding-top: 20px;
         }
 
         .report-item {
-            color: #ffaaaa;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-            border-left: 4px solid var(--report-red);
-            padding: 5px 12px;
+            color: #ffaaaa; font-size: 0.9rem; margin-bottom: 8px;
+            border-left: 4px solid var(--report-red); padding: 5px 12px;
             background: rgba(255,0,0,0.05);
         }
 
-        /* ================================================================
-           8. SUPPORT / AI
-           ================================================================ */
         .ai-container {
-            max-width: 900px;
-            margin: 80px auto;
-            background: var(--card-surface);
-            border-radius: 30px;
-            padding: 3rem;
-            border: 1px solid rgba(255,255,255,0.05);
+            max-width: 900px; margin: 80px auto; background: var(--card-surface);
+            border-radius: 30px; padding: 3rem; border: 1px solid rgba(255,255,255,0.05);
         }
 
         .chat-window {
-            height: 350px;
-            overflow-y: auto;
-            background: #050505;
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            border: 1px solid #222;
+            height: 300px; overflow-y: auto; background: #050505;
+            border-radius: 20px; padding: 2rem; margin-bottom: 1.5rem;
+            display: flex; flex-direction: column; gap: 1rem; border: 1px solid #222;
         }
 
-        .chat-bubble {
-            padding: 1rem 1.5rem;
-            border-radius: 15px;
-            max-width: 85%;
-            font-size: 0.95rem;
-        }
-
+        .chat-bubble { padding: 1rem 1.5rem; border-radius: 15px; max-width: 85%; font-size: 0.95rem; }
         .chat-bubble.bot { background: #333; align-self: flex-start; border-bottom-left-radius: 0; }
         .chat-bubble.user { background: var(--primary-color); align-self: flex-end; border-bottom-right-radius: 0; }
 
         .chat-controls { display: flex; gap: 1rem; }
         input#ai-input {
-            flex: 1;
-            padding: 1.2rem;
-            border-radius: 12px;
-            border: 1px solid #333;
-            background: #111;
-            color: white;
-            font-family: 'Poppins', sans-serif;
+            flex: 1; padding: 1.2rem; border-radius: 12px; border: 1px solid #333;
+            background: #111; color: white; font-family: 'Poppins', sans-serif;
         }
 
-        footer {
-            padding: 5rem 2rem;
-            text-align: center;
-            background: #000;
-            border-top: 1px solid #111;
-        }
+        footer { padding: 5rem 2rem; text-align: center; background: #000; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
@@ -394,6 +343,7 @@
         <div class="nav-links">
             <a href="#home">Start</a>
             <a href="#rules">Regeln</a>
+            <a href="#events">Events</a>
             <a href="#leitung">Leitung</a>
             <a href="#spieler">Spieler</a>
             <a href="#report">Report</a>
@@ -409,40 +359,36 @@
         <div class="hero-btns">
             <a href="https://discord.gg/k7sKwSRc" target="_blank" class="btn btn-blue">Discord Server</a>
             <button onclick="copyIP()" class="btn btn-green">IP Kopieren</button>
-            <p style="margin-top: 15px; color: var(--text-muted); font-size: 0.9rem;">
-                Du musst dich in die <strong style="color: var(--primary-color);">Discordgruppe: Whitelist</strong> einschreiben.
-            </p>
         </div>
     </header>
 
     <section class="rules-section" id="rules">
-        <h2 style="text-align:center; font-size:3rem; margin-bottom:1rem;">Das Regelwerk</h2>
-        <p style="text-align:center; color: var(--text-muted);">Ein faires Miteinander ist die Basis für unseren Spielspaß.</p>
-        
-        <div class="rules-container">
-            <div class="rule-box">
-                <h3>⚖️ Allgemein</h3>
-                <ul>
-                    <li>Respektvoller Umgang mit allen Spielern.</li>
-                    <li>Kein Spamming oder exzessive Großschreibung.</li>
-                    <li>Beleidigungen und Diskriminierung führen zum Bann.</li>
-                </ul>
+        <h2 style="text-align:center; font-size:3rem; margin-bottom:1rem;">Regelwerk</h2>
+        <div class="rules-grid">
+            <div class="rule-card">
+                <h3>🚫 Griefing</h3>
+                <p>Das Zerstören oder Verändern fremder Bauwerke ist strengstens untersagt und wird sofort bestraft.</p>
             </div>
-            <div class="rule-box">
-                <h3>⚔️ Gameplay</h3>
-                <ul>
-                    <li>Griefing (Zerstören fremder Bauten) ist verboten.</li>
-                    <li>Hacking & Client-Modifikationen sind untersagt.</li>
-                    <li>Kein Ausnutzen von Bugs (Fehler bitte melden).</li>
-                </ul>
+            <div class="rule-card">
+                <h3>🚫 Cheating</h3>
+                <p>Kein Hacken, Cheaten oder Nutzen von unfairen Client-Modifikationen. Wir spielen fair!</p>
             </div>
-            <div class="rule-box">
-                <h3>🏠 Bauen & Land</h3>
-                <ul>
-                    <li>Baut nicht zu nah an anderen Spielern (Absprache).</li>
-                    <li>Keine anstößigen oder rassistischen Bauwerke.</li>
-                    <li>Farmt Ressourcen bevorzugt in der Farmwelt.</li>
-                </ul>
+            <div class="rule-card">
+                <h3>🚫 Spawnkill</h3>
+                <p>Kein unnötiges mehrfaches Killen hintereinander. Gib jedem Spieler eine faire Chance!</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="events-section" id="events">
+        <div class="event-banner">
+            <div class="event-tag">AKTUELL</div>
+            <div class="event-content">
+                <h2>Server Eröffnung</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem;">Sei dabei beim großen Start von Gamewaffel! Baue deine erste Base und werde Teil der Community.</p>
+                <div style="font-family: 'Courier Prime'; background: rgba(0,0,0,0.5); display: inline-block; padding: 10px 30px; border-radius: 10px;">
+                    NÄCHSTES EVENT: <span style="color: var(--accent-gold);">Wird im Discord angekündigt!</span>
+                </div>
             </div>
         </div>
     </section>
@@ -451,30 +397,22 @@
         <h2 style="text-align:center; font-size:3rem; margin-bottom:1rem;">Netzwerk Leitung</h2>
         <div class="team-grid">
             <div class="profile-card">
-                <div class="head-wrapper">
-                    <img src="https://minotar.net/cube/GamerPalle67/100.png" alt="GamerPalle67">
-                </div>
+                <div class="head-wrapper"><img src="https://minotar.net/cube/GamerPalle67/100.png"></div>
                 <span class="rank-label color-red">Server Owner</span>
                 <h3>GamerPalle67</h3>
             </div>
             <div class="profile-card">
-                <div class="head-wrapper">
-                    <img src="https://minotar.net/cube/Tritim/100.png" alt="Tritim">
-                </div>
+                <div class="head-wrapper"><img src="https://minotar.net/cube/Tritim/100.png"></div>
                 <span class="rank-label color-blue">Developer</span>
                 <h3>Tritim</h3>
             </div>
              <div class="profile-card">
-                <div class="head-wrapper">
-                    <img src="https://minotar.net/cube/Nick_Byte/100.png" alt="Nick_Byte">
-                </div>
+                <div class="head-wrapper"><img src="https://minotar.net/cube/Nick_Byte/100.png"></div>
                 <span class="rank-label color-admin">Admin</span>
                 <h3>Nick_Byte</h3>
             </div>
             <div class="profile-card">
-                <div class="head-wrapper">
-                    <img src="https://minotar.net/cube/Schokimaster/100.png" alt="Schokimaster">
-                </div>
+                <div class="head-wrapper"><img src="https://minotar.net/cube/Schokimaster/100.png"></div>
                 <span class="rank-label color-admin">Admin</span>
                 <h3>Schokimaster</h3>
             </div>
@@ -485,61 +423,28 @@
         <h2 style="text-align:center; font-size:3rem; margin-bottom:1rem;">Aktive Spieler</h2>
         <div class="team-grid">
             <div class="profile-card">
-                <div class="head-wrapper" style="border-color: #555;">
-                    <img src="https://api.mineatar.io/face/7b9b0d01-0325-4cd2-8f0c-55d216160867?scale=12" alt="Franz27111111">
-                </div>
+                <div class="head-wrapper" style="border-color: #555;"><img src="https://api.mineatar.io/face/7b9b0d01-0325-4cd2-8f0c-55d216160867?scale=12"></div>
                 <span class="rank-label color-player">Spieler</span>
                 <h3>Franz27111111</h3>
             </div>
             <div class="profile-card">
-                <div class="head-wrapper" style="border-color: #555;">
-                    <img src="https://minotar.net/cube/DirtKirt123/100.png" alt="DirtKirt123">
-                </div>
+                <div class="head-wrapper" style="border-color: #555;"><img src="https://minotar.net/cube/DirtKirt123/100.png"></div>
                 <span class="rank-label color-player">Spieler</span>
                 <h3>DirtKirt123</h3>
             </div>
             <div class="profile-card">
-                <div class="head-wrapper" style="border-color: #555;">
-                    <img src="https://minotar.net/cube/Theo271/100.png" alt="Theo271">
-                </div>
+                <div class="head-wrapper" style="border-color: #555;"><img src="https://minotar.net/cube/Theo271/100.png"></div>
                 <span class="rank-label color-player">Spieler</span>
                 <h3>Theo271</h3>
-            </div>
-            <div class="profile-card">
-                <div class="head-wrapper" style="border-color: #555;">
-                    <img src="https://minotar.net/cube/Star_Cap_8/100.png" alt="Star_Cap_8">
-                </div>
-                <span class="rank-label color-player">Spieler</span>
-                <h3>Star_Cap_8</h3>
-            </div>
-            <div class="profile-card">
-                <div class="head-wrapper" style="border-color: #555;">
-                    <img src="https://minotar.net/cube/ILyxy/100.png" alt="ILyxy">
-                </div>
-                <span class="rank-label color-player">Spieler</span>
-                <h3>ILyxy</h3>
-            </div>
-            <div class="profile-card">
-                <div class="head-wrapper" style="border-color: #555;">
-                    <img src="https://minotar.net/cube/2011Leon/100.png" alt="2011Leon">
-                </div>
-                <span class="rank-label color-player">Spieler</span>
-                <h3>2011Leon</h3>
             </div>
         </div>
     </section>
 
     <section class="report-section" id="report">
         <h2 style="color: var(--report-red); text-transform: uppercase; letter-spacing: 5px;">Report Chat</h2>
-        <p style="color: #aaa; margin-top: 10px;">Spieler-Meldungen werden direkt an das Team weitergeleitet und daraufhin bearbeitet.</p>
-        
         <div class="report-console">
             <div id="console-output" style="color: #666; font-size: 0.8rem;">SYTEM BEREIT. NUTZE: /report [Name] [Grund]</div>
-            
-            <div id="report-list">
-                <div style="color: gold; margin-bottom: 15px; border-bottom: 1px solid gold; display: inline-block;">GEHEIM-LOGBUCH (ADMINS)</div>
-                </div>
-
+            <div id="report-list"></div>
             <div class="report-input-wrapper">
                 <input type="text" id="report-cmd" placeholder="/report Name Grund..." onkeypress="if(event.key==='Enter') handleReport()">
                 <button class="btn" style="padding: 10px 25px; margin:0; background: var(--report-red); font-size: 0.8rem;" onclick="handleReport()">SENDEN</button>
@@ -549,24 +454,23 @@
 
     <section class="support-section" id="support">
         <div class="ai-container">
-            <h2 style="margin-bottom: 1rem; text-align: center;">Support KI-Assistent</h2>
+            <h2 style="margin-bottom: 1rem; text-align: center;">Support KI</h2>
             <div class="chat-window" id="chat-box">
-                <div class="chat-bubble bot">Willkommen im Support! Wie kann ich dir heute helfen?</div>
+                <div class="chat-bubble bot">Willkommen im Support! Wie kann ich helfen?</div>
             </div>
             <div class="chat-controls">
-                <input type="text" id="ai-input" placeholder="Schreibe eine Nachricht..." onkeypress="if(event.key==='Enter') runAI()">
+                <input type="text" id="ai-input" placeholder="Nachricht..." onkeypress="if(event.key==='Enter') runAI()">
                 <button class="btn btn-green" style="margin:0; padding: 15px 30px;" onclick="runAI()">Senden</button>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Gamewaffel-Network | Alle Rechte vorbehalten.</p>
-        <p style="color:var(--primary-color); margin-top: 10px;">Partner: G-Portal Hosting</p>
+        <p>&copy; 2026 Gamewaffel-Network | Partner: G-Portal Hosting</p>
     </footer>
 
     <script>
-        // 1. PARTIKEL EFFEKT
+        // PARTIKEL & IP KOPIEREN (LOGIK BEIBEHALTEN)
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -587,53 +491,30 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas(); initParticles(); animate();
 
-        // 2. IP KOPIEREN
         function copyIP() {
             const ip = document.getElementById('server-ip').innerText;
-            navigator.clipboard.writeText(ip).then(() => {
-                alert("Server-IP kopiert: " + ip);
-            });
+            navigator.clipboard.writeText(ip).then(() => { alert("Server-IP kopiert: " + ip); });
         }
 
-        // 3. REPORT LOGIK
         function handleReport() {
             const input = document.getElementById('report-cmd');
             const output = document.getElementById('console-output');
             const list = document.getElementById('report-list');
             const val = input.value.trim();
-            
             if (val.startsWith("/report ")) {
-                const parts = val.split(" ");
-                if (parts.length < 3) {
-                    output.innerText = "STATUS: FEHLGESCHLAGEN. Grund fehlt.";
-                    output.style.color = "#ff4444";
-                } else {
-                    const name = parts[1];
-                    const reason = parts.slice(2).join(" ");
-                    const reportEntry = `[MELDUNG] Spieler: ${name} | Grund: ${reason}`;
-                    
-                    output.innerText = "STATUS: ERFOLGREICH. Meldung an Team gesendet.";
-                    output.style.color = "#00ff00";
-                    
-                    const div = document.createElement("div");
-                    div.className = "report-item";
-                    div.innerText = reportEntry;
-                    list.appendChild(div);
-                }
-            } 
-            else if (val === "/see reports") {
-                list.style.display = "block";
-                output.innerText = "STATUS: ADMIN-ZUGRIFF GEWÄHRT.";
-                output.style.color = "gold";
-            }
-            else {
-                output.innerText = "STATUS: UNBEKANNTER BEFEHL.";
+                output.innerText = "STATUS: ERFOLGREICH. Meldung gesendet.";
+                output.style.color = "#00ff00";
+                const div = document.createElement("div");
+                div.className = "report-item";
+                div.innerText = val;
+                list.appendChild(div);
+            } else {
+                output.innerText = "STATUS: FEHLER.";
                 output.style.color = "#ff4444";
             }
             input.value = "";
         }
 
-        // 4. KI LOGIK
         function runAI() {
             const input = document.getElementById('ai-input');
             const val = input.value.trim();
@@ -641,11 +522,8 @@
             addMsg(val, 'user');
             input.value = "";
             setTimeout(() => {
-                const low = val.toLowerCase();
-                let reply = "Bitte sende eine E-Mail an support@gamewaffel.de für Hilfe!";
-                if (low.includes("hallo") || low.includes("hey")) reply = "Hey! Wie kann ich dir auf Gamewaffel helfen?";
-                if (low.includes("ip")) reply = "Die IP ist: eu7118422.g-portal.game";
-                if (low.includes("regeln")) reply = "Unsere Regeln findest du direkt oben im Bereich 'Regeln'. Kurz gefasst: Kein Griefing, kein Hacking!";
+                let reply = "Frag gerne im Discord nach!";
+                if (val.toLowerCase().includes("regeln")) reply = "Ganz wichtig: Kein Griefing, kein Hacken und kein unnötiges Killen!";
                 addMsg(reply, 'bot');
             }, 700);
         }
