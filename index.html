@@ -156,7 +156,61 @@
         .btn:hover { transform: translateY(-5px); filter: brightness(1.2); }
 
         /* ================================================================
-           5. TEAM & PLAYER GRID
+           5. RULES SECTION (NEW)
+           ================================================================ */
+        .rules-section {
+            padding: 100px 10%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .rules-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .rule-box {
+            background: var(--card-surface);
+            padding: 2rem;
+            border-radius: 20px;
+            border-left: 5px solid var(--primary-color);
+            transition: 0.3s;
+        }
+
+        .rule-box:hover {
+            transform: scale(1.02);
+            background: rgba(30,30,30,0.95);
+        }
+
+        .rule-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rule-box ul {
+            list-style: none;
+            color: var(--text-muted);
+        }
+
+        .rule-box ul li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .rule-box ul li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+
+        /* ================================================================
+           6. TEAM & PLAYER GRID
            ================================================================ */
         .team-section { padding: 80px 5%; background: rgba(0,0,0,0.3); }
         .team-grid {
@@ -214,7 +268,7 @@
         .color-blue { color: #5865F2; }
 
         /* ================================================================
-           6. REPORT SYSTEM
+           7. REPORT SYSTEM
            ================================================================ */
         .report-section {
             max-width: 900px;
@@ -277,7 +331,7 @@
         }
 
         /* ================================================================
-           7. SUPPORT / AI
+           8. SUPPORT / AI
            ================================================================ */
         .ai-container {
             max-width: 900px;
@@ -339,6 +393,7 @@
         <div class="nav-brand">Gamewaffel</div>
         <div class="nav-links">
             <a href="#home">Start</a>
+            <a href="#rules">Regeln</a>
             <a href="#leitung">Leitung</a>
             <a href="#spieler">Spieler</a>
             <a href="#report">Report</a>
@@ -359,6 +414,38 @@
             </p>
         </div>
     </header>
+
+    <section class="rules-section" id="rules">
+        <h2 style="text-align:center; font-size:3rem; margin-bottom:1rem;">Das Regelwerk</h2>
+        <p style="text-align:center; color: var(--text-muted);">Ein faires Miteinander ist die Basis für unseren Spielspaß.</p>
+        
+        <div class="rules-container">
+            <div class="rule-box">
+                <h3>⚖️ Allgemein</h3>
+                <ul>
+                    <li>Respektvoller Umgang mit allen Spielern.</li>
+                    <li>Kein Spamming oder exzessive Großschreibung.</li>
+                    <li>Beleidigungen und Diskriminierung führen zum Bann.</li>
+                </ul>
+            </div>
+            <div class="rule-box">
+                <h3>⚔️ Gameplay</h3>
+                <ul>
+                    <li>Griefing (Zerstören fremder Bauten) ist verboten.</li>
+                    <li>Hacking & Client-Modifikationen sind untersagt.</li>
+                    <li>Kein Ausnutzen von Bugs (Fehler bitte melden).</li>
+                </ul>
+            </div>
+            <div class="rule-box">
+                <h3>🏠 Bauen & Land</h3>
+                <ul>
+                    <li>Baut nicht zu nah an anderen Spielern (Absprache).</li>
+                    <li>Keine anstößigen oder rassistischen Bauwerke.</li>
+                    <li>Farmt Ressourcen bevorzugt in der Farmwelt.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
     <section class="team-section" id="leitung">
         <h2 style="text-align:center; font-size:3rem; margin-bottom:1rem;">Netzwerk Leitung</h2>
@@ -558,6 +645,7 @@
                 let reply = "Bitte sende eine E-Mail an support@gamewaffel.de für Hilfe!";
                 if (low.includes("hallo") || low.includes("hey")) reply = "Hey! Wie kann ich dir auf Gamewaffel helfen?";
                 if (low.includes("ip")) reply = "Die IP ist: eu7118422.g-portal.game";
+                if (low.includes("regeln")) reply = "Unsere Regeln findest du direkt oben im Bereich 'Regeln'. Kurz gefasst: Kein Griefing, kein Hacking!";
                 addMsg(reply, 'bot');
             }, 700);
         }
