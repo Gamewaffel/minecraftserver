@@ -245,14 +245,10 @@
             box-shadow: 0 0 30px rgba(156, 39, 176, 0.5);
         }
 
-        /* Der Minecraft Enchantment-Glanz Effekt */
         .enchant-glow::after {
             content: "";
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            top: -50%; left: -50%; width: 200%; height: 200%;
             background: linear-gradient(
                 45deg,
                 transparent 0%,
@@ -273,13 +269,9 @@
 
         .event-card-item {
             background: rgba(0,0,0,0.4);
-            margin: 15px 0;
-            padding: 20px;
-            border-radius: 15px;
-            border-left: 5px solid var(--accent-gold);
-            text-align: left;
-            position: relative;
-            z-index: 2;
+            margin: 15px 0; padding: 20px;
+            border-radius: 15px; border-left: 5px solid var(--accent-gold);
+            text-align: left; position: relative; z-index: 2;
         }
 
         /* ================================================================
@@ -398,7 +390,7 @@
         <h2 style="text-align:center; font-size:3rem; margin-bottom:1rem;">Aktive Spieler</h2>
         <div class="team-grid">
             <div class="profile-card">
-                <div class="head-wrapper" style="border-color: #555;"><img src="https://api.mineatar.io/face/7b9b0d01-0325-4cd2-8f0c-55d216160867?scale=12"></div>
+                <div class="head-wrapper" style="border-color: #555;"><img src="https://minotar.net/cube/Franz27111111/100.png"></div>
                 <span class="rank-label color-player">Spieler</span>
                 <h3>Franz27111111</h3>
             </div>
@@ -411,6 +403,21 @@
                 <div class="head-wrapper" style="border-color: #555;"><img src="https://minotar.net/cube/Theo271/100.png"></div>
                 <span class="rank-label color-player">Spieler</span>
                 <h3>Theo271</h3>
+            </div>
+            <div class="profile-card">
+                <div class="head-wrapper" style="border-color: #555;"><img src="https://minotar.net/cube/Star_Cap_8/100.png"></div>
+                <span class="rank-label color-player">Spieler</span>
+                <h3>Star_Cap_8</h3>
+            </div>
+            <div class="profile-card">
+                <div class="head-wrapper" style="border-color: #555;"><img src="https://minotar.net/cube/ILyxy/100.png"></div>
+                <span class="rank-label color-player">Spieler</span>
+                <h3>ILyxy</h3>
+            </div>
+            <div class="profile-card">
+                <div class="head-wrapper" style="border-color: #555;"><img src="https://minotar.net/cube/2011Leon/100.png"></div>
+                <span class="rank-label color-player">Spieler</span>
+                <h3>2011Leon</h3>
             </div>
         </div>
     </section>
@@ -439,18 +446,18 @@
                 <h2 style="color: white; font-family: 'Montserrat'; font-size: 3rem; margin-bottom: 2rem;">Server Events</h2>
                 
                 <div class="event-card-item">
-                    <h3 style="color: var(--accent-gold);">🏹 GROSSES MANHUNT</h3>
-                    <p>Alle gegen unseren Developer **Tritim**! Wer schafft es, ihn zu stoppen?</p>
-                    <small style="color: var(--primary-color); font-weight: bold;">DATUM: Übernächsten Freitag</small>
+                    <h3 style="color: var(--accent-gold);">🏹 MANHUNT: KILL TRITIM</h3>
+                    <p>Die gesamte Community jagt unseren Developer Tritim! Kann er entkommen?</p>
+                    <small style="color: var(--primary-color); font-weight: bold;">TERMIN: Übernächsten Freitag</small>
                 </div>
 
                 <div class="event-card-item">
                     <h3 style="color: #ff5555;">🔥 NETHER OPENING</h3>
-                    <p>Kurz nach dem Manhunt öffnen wir die Tore zur Hölle. Seid bereit für den Nether-Run!</p>
+                    <p>Kurz nach dem Manhunt wird das Portal für alle freigegeben!</p>
                 </div>
 
                 <div style="margin-top: 2rem; font-family: 'Courier Prime'; color: #ccc;">
-                    Weitere Infos folgen in Kürze auf Discord!
+                    Check den Discord für die genauen Uhrzeiten!
                 </div>
             </div>
         </div>
@@ -540,7 +547,7 @@
             setTimeout(() => {
                 let reply = "Frag gerne im Discord nach!";
                 if (val.toLowerCase().includes("regeln")) reply = "Ganz wichtig: Kein Griefing, kein Hacken und kein unnötiges Killen!";
-                if (val.toLowerCase().includes("event")) reply = "Schau mal weiter oben! Übernächsten Freitag gibt es ein großes Manhunt gegen Tritim!";
+                if (val.toLowerCase().includes("event")) reply = "Komm übernächsten Freitag zum Manhunt gegen Tritim!";
                 addMsg(reply, 'bot');
             }, 700);
         }
